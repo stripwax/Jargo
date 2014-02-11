@@ -1,0 +1,54 @@
+body
+{
+font-family:"Arial","Sans-Serif";
+margin-top: 0px;
+margin-left: 0px;
+margin-right: 0px;
+margin-bottom: 0px;
+padding: 0px;
+}
+
+div
+{
+margin: 0;
+margin-top: 0;
+margin-bottom: 0;
+margin-left: 0;
+margin-right: 0;
+}
+
+.current
+{
+  background-image: url(warehouse1.jpg);
+  background-size: Auto 100%;
+
+}
+
+#arm
+{
+  transition:50ms linear;
+}
+
+#claw
+{
+  transition:50ms linear;
+}
+
+#claw-shut
+{
+  transition:50ms linear;
+}
+
+.box
+{
+  transition:50ms linear;
+}
+
+p
+{
+margin: 0;
+margin-top: 0;
+margin-bottom: 0;
+margin-left: 0;
+margin-right: 0;
+}

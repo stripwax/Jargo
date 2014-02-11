@@ -1,0 +1,8 @@
+function drop()
+{
+}
+
+function drag()
+{
+}
+
