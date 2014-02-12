@@ -1,10 +1,3 @@
-
-
-var levels_data_all_categories = [
-	"Easy",
-	"Medium",
-];
-
 var levels_data = [
   {
     rating:"Easy",
