@@ -28,7 +28,8 @@ function level_select_refresh()
   }
 
   var category_node = document.getElementById("category");
-  selected_category = category_node.options[ category_node.selectedIndex ].value;
+  selected_category = category_node.options[ category_node.selectedIndex ].text;
+  console.log("selected category is:" + selected_category );
   var level_names = level_get_names( selected_category );
   for( var i=0;i<level_names.length;i++)
   {
