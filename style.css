@@ -27,13 +27,12 @@ margin-right: 0;
   background-image: url(warehouse1.jpg);
   background-size: Auto 100%;
   opacity:0.3;
-  z-index:1;
 }
 
 .current
 {
-  z-index:5;
   position:relative;
+  color: white;
 }
 
 #arm
