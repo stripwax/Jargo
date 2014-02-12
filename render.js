@@ -12,7 +12,7 @@ height=height*0.7; // this is a fudge. why doesn't above work correctly?
 width=width*0.7;
 
   var tall = MAX_BOXES_HEIGHT+1.5;
-  var wide = 7;
+  var wide = MAX_BOXES_WIDTH;
   var scale_by_tall = (height/tall)-1;
   var scale_by_wide = (width/wide)-1;
 
@@ -63,13 +63,13 @@ function render_initialise()
 {
   var parent_current=document.getElementById("div_current");
   parent_current.style.position = "relative";
-  parent_current.style.width = (CURRENT_SCALE*(1+PAD_RATIO)*7) + "px";
-  parent_current.style.height = (CURRENT_SCALE*9.5) + "px";
+  parent_current.style.width = (CURRENT_SCALE*(1+PAD_RATIO)*MAX_BOXES_WIDTH) + "px";
+  parent_current.style.height = (CURRENT_SCALE*(MAX_BOXES_HEIGHT+1.5)) + "px";
 
   var parent_goal=document.getElementById("div_goal");
   parent_goal.style.position = "relative";
-  parent_goal.style.width = (GOAL_SCALE*(1+PAD_RATIO)*7) + "px";
-  parent_goal.style.height = (GOAL_SCALE*9.5) + "px";
+  parent_goal.style.width = (GOAL_SCALE*(1+PAD_RATIO)*MAX_BOXES_WIDTH) + "px";
+  parent_goal.style.height = (GOAL_SCALE*(MAX_BOXES_HEIGHT+1.5)) + "px";
 
   for( var i = 0; i < current_state_boxes.length; i++ )
   {

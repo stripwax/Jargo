@@ -1,4 +1,5 @@
 var MAX_BOXES_HEIGHT = 8; // how high can you stack a pile
+var MAX_BOXES_WIDTH = 8; // how many piles can there be (depends on level data!)
 var level = null;
 
 function load_level_select()
