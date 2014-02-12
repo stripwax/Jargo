@@ -20,32 +20,33 @@
 <div style="height:85vh"> <!-- entire viewport -->
 
 <div style="float:left;width:50%;height:100%">
+Choose A Level:<br>
 <select id="category" onchange="level_select_refresh();">
 </select>
 <select id="level_select">
 </select>
+<br>
 <button type="button" onclick="load_level_select()">Load Level</button>
-
-<p id="program"></p>
-
-<button type="button" onclick="game_reset()">Reset</button>
-<button type="button" onclick="game_step()" id="step_button">Step</button>
-<button type="button" onclick="game_run()" id="run_button">Run</button>
 <div style="height:10%">
-  <h1>TARGET</h1>
-</div>
-<div id="div_goal" style="width:224px;height:45%;border:2px solid #000;background-color:yellow;float:left">
-</div>
-</div>
-
-<div style="float:left;width:50%;height:100%" id="RHS">
-<div style="height:10%">
-  <h1>YOUR SOLUTION</h1>
+<h1>Your Warehouse</h1>
 </div>
 <div id="div_current" class="current" style="width:224px;height:9%;border:2px solid #000;float:left;">
 <object type="image/svg+xml" data="arm.svg" id="arm"></object>
 <object type="image/svg+xml" data="clw-open.svg" id="claw"></object>
 <object type="image/svg+xml" data="clw-shut.svg" id="claw_shut"></object>
+</div>
+</div>
+
+
+<div style="float:left;width:50%;height:100%" id="RHS">
+<p id="program"></p>
+<button type="button" onclick="game_reset()">Reset</button>
+<button type="button" onclick="game_step()" id="step_button">Step</button>
+<button type="button" onclick="game_run()" id="run_button">Run</button>
+<div style="height:10%">
+  What you want to end up with
+</div>
+<div id="div_goal" style="width:224px;height:45%;border:2px solid #000;background-color:yellow;float:left">
 </div>
 </div>
 
