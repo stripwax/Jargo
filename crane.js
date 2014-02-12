@@ -42,7 +42,7 @@ function crane_step_pre()
   }
   else if( crane_state == "going right" )
   {
-    if( crane_x < initial_state.length ) // this is the number of columns in the puzzle
+    if( crane_x < initial_state.length -1 ) // this is the number of columns in the puzzle
     {
       crane_x = crane_x + 1;
       if( crane_box != "None" )
