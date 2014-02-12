@@ -5,7 +5,7 @@ function load_level_select()
 {
   var category_node = document.getElementById("category");
   var level_names_node = document.getElementById("level_select");
-  load_level_from_choice( category_node.options[ category_node.selectedIndex ].value, level_names_node.options[ level_names_node.selectedIndex ].value );
+  load_level_from_choice( category_node.options[ category_node.selectedIndex ].text, level_names_node.options[ level_names_node.selectedIndex ].text );
 }
 function load_level_from_choice( category, level_name )
 {
