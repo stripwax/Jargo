@@ -4,18 +4,24 @@ var GOAL_SCALE = 10;
 
 function render_set_scale()
 {
-  var div = document.getElementById("RHS");
-  var computed = document.defaultView.getComputedStyle(div);
-  var height = parseInt(computed.getPropertyValue("height"));
-  var margin_top = parseInt(computed.getPropertyValue("margin-top"));
-  var margin_bottom = parseInt(computed.getPropertyValue("margin-bottom"));
-  height = height-margin_top-margin_bottom;
-  height = height - 4; // because I have a 2px border drawn!
+  var div = document.getElementById("div_current");
 
-  console.log("height = " + height);
-  //var height = div.offsetHeight-div.offsetTop*2;
-  //  var height = div.innerHeight(); 
-  CURRENT_SCALE = (height/9.5)-1;
+  var height = div.clientHeight;
+  var width = div.clientWidth;
+height=height*0.7; // this is a fudge. why doesn't above work correctly?
+width=width*0.7;
+
+  var tall = MAX_BOXES_HEIGHT+1.5;
+  var wide = 7;
+  var scale_by_tall = (height/tall)-1;
+  var scale_by_wide = (width/wide)-1;
+
+  console.log( "by tall = " + scale_by_tall + " , by wide = " + scale_by_wide );
+
+  CURRENT_SCALE = Math.min(scale_by_tall, scale_by_wide);
+  div.width=CURRENT_SCALE*wide + "px";
+  div.height=CURRENT_SCALE*tall + "px";
+
   GOAL_SCALE = CURRENT_SCALE / 2;
 }
 

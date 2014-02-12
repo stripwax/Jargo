@@ -17,7 +17,7 @@
 
 <body>
 
-<div style="height:85vh"> <!-- entire viewport -->
+<div style="height:100vh"> <!-- entire viewport -->
 
 <div style="float:left;width:50%;height:100%">
 Choose A Level:<br>
@@ -30,10 +30,15 @@ Choose A Level:<br>
 <div style="height:10%">
 <h1>Your Warehouse</h1>
 </div>
-<div id="div_current" class="current" style="width:224px;height:9%;border:2px solid #000;float:left;">
+<div class="current" style="width:100%;height:90%">
+
+<div id="div_current" style="position:relative;width:100%;height:100%;margin:0 auto;padding:0;border:2px solid #000;float:left">
 <object type="image/svg+xml" data="arm.svg" id="arm"></object>
 <object type="image/svg+xml" data="clw-open.svg" id="claw"></object>
 <object type="image/svg+xml" data="clw-shut.svg" id="claw_shut"></object>
+<div class="current-background" style="width:100%,height:100%">&nbsp;</div>
+</div>
+
 </div>
 </div>
 
@@ -46,7 +51,7 @@ Choose A Level:<br>
 <div style="height:10%">
   What you want to end up with
 </div>
-<div id="div_goal" style="width:224px;height:45%;border:2px solid #000;background-color:yellow;float:left">
+<div id="div_goal" style="width:50%;height:45%;border:2px solid #000;background-color:yellow;float:left">
 </div>
 </div>
 
