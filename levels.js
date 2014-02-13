@@ -17,6 +17,9 @@ function load_level_from_choice( category, level_name )
     if( levels_data[i].rating === category && levels_data[i].title === level_name )
       load_level(i);
   }
+
+  current_level_category = category;
+  current_level_name = level_name;
 }
 
 function load_level(x)

@@ -2,6 +2,8 @@ var game_state = "STOPPED";
 var game_reset_next = true;
 var run_timer = null;
 var animating = false;
+var current_level_category = null;
+var current_level_name = null;
 
 function on_load()
 {
@@ -17,6 +19,12 @@ function on_load()
   category_node.selectedIndex = 0;
   selected_category = categories[ category_node.selectedIndex ];
   level_select_refresh();
+
+  if( current_level_category == null || current_level_name == null )
+  {
+    load_level(0);
+    game_reset();
+  }
 }
 
 function level_select_refresh()
@@ -35,9 +43,6 @@ function level_select_refresh()
   {
     level_node.innerHTML += "<option value='"+level_names[i]+"'>" + level_names[i]+ "</option>";
   }
-
-  load_level(0);
-  game_reset();
 }
 
 function game_reset()
