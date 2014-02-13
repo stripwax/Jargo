@@ -29,7 +29,7 @@ function crane_step_pre()
   }
   else if( crane_state == "going left" )
   {
-    if( crane_x > -1 )
+    if( crane_x > warehouse_first_column )
     {
       crane_x = crane_x - 1;
       if( crane_box != "None" )
@@ -42,7 +42,7 @@ function crane_step_pre()
   }
   else if( crane_state == "going right" )
   {
-    if( crane_x < initial_state.length -1 ) // this is the number of columns in the puzzle
+    if( crane_x < warehouse_last_column )
     {
       crane_x = crane_x + 1;
       if( crane_box != "None" )

@@ -1,6 +1,9 @@
 var MAX_BOXES_HEIGHT = 8; // how high can you stack a pile
 var MAX_BOXES_WIDTH = 8; // how many piles can there be (depends on level data!)
+var TYPES_OF_BOXES = 4; // how many different kinds of boxes there are i.e. 0 thru 3
 var level = null;
+var warehouse_first_column = 0;
+var warehouse_last_column = MAX_BOXES_WIDTH - 1;
 
 function load_level_select()
 {
@@ -22,36 +25,89 @@ function load_level_from_choice( category, level_name )
   current_level_name = level_name;
 }
 
+function level_check_sanity( x )
+{
+  level = levels_data[ x ];
+  // perform some quick sanity checks on the level data
+  if(level.initial_state.length != level.goal_state.length )
+  {
+    alert( "Bad level! initial_state and goal_state are different sizes!" );
+    return;
+  }
+  var boxes_by_type = [];
+  for(var i=0;i<TYPES_OF_BOXES;i++)
+    boxes_by_type &= 0;
+  for( var i = 0; i < level.initial_state.length; i++ )
+  {
+    for( var j = 0; j < level.initial_state[i].length; j++ )
+    {
+      var boxtype = level.initial_state[i][j];
+      if( isNaN(boxtype) || boxtype < 0 || boxtype > TYPES_OF_BOXES - 1 )
+      {
+        alert( "Bad level! found a box type '" + boxtype + "'" );
+        return;
+      }
+      boxes_by_type[boxtype]++;
+    }
+  }
+  for( var i = 0; i < level.goal_state.length; i++ )
+  {
+    for( var j = 0; j < level.goal_state[i].length; j++ )
+    {
+      var boxtype = level.goal_state[i][j];
+      if( isNaN(boxtype) || boxtype < 0 || boxtype > TYPES_OF_BOXES - 1 )
+      {
+        alert( "Bad level! found a box type '" + boxtype + "'" );
+        return;
+      }
+      boxes_by_type[boxtype]--;
+    }
+  }
+  for(var i=0;i<TYPES_OF_BOXES;i++)
+  {
+    if(Math.abs(boxes_by_type[i])>1e-4)
+    {
+      alert( "Bad level! found a different number of box type '" + i + "' in initial_state and goal_state\n" + boxes_by_type );
+      return;
+    }
+  }
+}
+
 function load_level(x)
 {
-  prev_level=level;
   render_deinitialise();
 
   game_state = "stopped";
   console.log( "Loading level " + x );
   level = levels_data[ x ];
-  initial_state = [];
-  current_state = [];
+  level_check_sanity(x);
+
+  // center the 'usable' part of the warehouse
+  warehouse_first_column = Math.floor((MAX_BOXES_WIDTH-level.initial_state.length) /2 );
+  warehouse_last_column = warehouse_first_column+level.initial_state.length - 1;
+
+  initial_state = Array(MAX_BOXES_WIDTH);
+  current_state = Array(MAX_BOXES_WIDTH);
   current_state_boxes = [];
-  id = 0;
+  var id = 0;
   for( var i = 0; i < level.initial_state.length; i++ )
   {
     initial_column = [];
     current_column = [];
     for( var j = 0; j < level.initial_state[i].length; j++ )
     {
-      box_info = {x:i, y:j, type:level.initial_state[i][j], id:id };
+      box_info = {x:i + warehouse_first_column, y:j, type:level.initial_state[i][j], id:id };
       current_column.push( box_info );
       current_state_boxes.push( box_info );
       clone_box = box_info.clone();
       initial_column.push( clone_box );
       id = id + 1;
     }
-    initial_state.push( initial_column );
-    current_state.push( current_column );
+    initial_state[i + warehouse_first_column] = initial_column;
+    current_state[i + warehouse_first_column] = current_column;
   }
 
-  goal_state = [];
+  goal_state = Array(MAX_BOXES_WIDTH);
   goal_state_boxes = [];
   id = 0;
   for( var i = 0; i < level.goal_state.length; i++ )
@@ -59,15 +115,15 @@ function load_level(x)
     column = [];
     for( var j = 0; j < level.goal_state[i].length; j++ )
     {
-      box_info = {x:i, y:j, type:level.goal_state[i][j], id:id };
+      box_info = {x:i + warehouse_first_column, y:j, type:level.goal_state[i][j], id:id };
       column.push( box_info );
       goal_state_boxes.push( box_info );
       id = id + 1;
     }
-    goal_state.push( column );
+    goal_state[i+warehouse_first_column] = column;
   }
 
-  initial_crane_x = level.crane_x;
+  initial_crane_x = level.crane_x + warehouse_first_column;
  
   console.log("doing render initialize");
   render_initialise();
@@ -75,3 +131,4 @@ function load_level(x)
 
   game_reset();
 }
+

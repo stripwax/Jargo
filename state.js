@@ -10,6 +10,10 @@ function check_goal_state()
   var match=true;
   for( var i=0; i<goal_state.length; i++)
   {
+    // we represent columns outside of the available warehouse space (i.e. before 'warehouse_first_column'
+    // or after 'warehouse_last_column') as undefined. so don't try and compare the undefined things.
+    if( undefined == goal_state[i] ) continue;
+
     if( current_state[i].length != goal_state[i].length )
     {
       match = false;
@@ -40,13 +44,16 @@ function reset_state()
   for( var i = 0; i < initial_state.length; i++ )
   {
     current_column = [];
-    for( var j = 0; j < initial_state[i].length; j++ )
+    if(undefined != initial_state[i] )
     {
-      box_info = initial_state[i][j].clone();
-      current_column.push( box_info );
-      current_state_boxes.push( box_info );
+      for( var j = 0; j < initial_state[i].length; j++ )
+      {
+        box_info = initial_state[i][j].clone();
+        current_column.push( box_info );
+        current_state_boxes.push( box_info );
+      }
+      current_state[i] = current_column;
     }
-    current_state.push( current_column );
   }
 }
 
