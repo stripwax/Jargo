@@ -29,6 +29,17 @@ margin-right: 0;
   opacity:0.3;
 }
 
+.current_out_of_bounds
+{
+  position:absolute;
+  background-color:#103050;
+  opacity:0.35;
+  height:100%;
+  top:0px;
+  left:0px;
+  z-order:2;
+}
+
 .current
 {
   position:relative;

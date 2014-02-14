@@ -61,6 +61,13 @@ function render_deinitialise()
 
 function render_initialise()
 {
+  var oob_left=document.getElementById("div_out_of_bounds_left");
+  oob_left.style.width = (CURRENT_SCALE*(1+PAD_RATIO)*warehouse_first_column) + "px";
+  oob_left.style.left = "0px";
+  var oob_right=document.getElementById("div_out_of_bounds_right");
+  oob_right.style.width = (CURRENT_SCALE*(1+PAD_RATIO)*(MAX_BOXES_WIDTH-warehouse_last_column-1)) + "px";
+  oob_right.style.left = (CURRENT_SCALE*(1+PAD_RATIO)*(warehouse_last_column+1)) + "px";
+
   var parent_current=document.getElementById("div_current");
   parent_current.style.position = "relative";
   parent_current.style.width = (CURRENT_SCALE*(1+PAD_RATIO)*MAX_BOXES_WIDTH) + "px";
