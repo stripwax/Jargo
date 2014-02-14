@@ -1,6 +1,7 @@
 var CURRENT_SCALE = 10;
 var PAD_RATIO = 0.5;
 var GOAL_SCALE = 10;
+var OOB_PAD = 0.5; // this means 'how many boxes-worth of padding do we ALWAYS show as out-of-bounds on the far left and right of the warehouse'
 
 function render_set_scale()
 {
@@ -14,7 +15,7 @@ function render_set_scale()
   var width = above_div.clientWidth;
 
   var tall = MAX_BOXES_HEIGHT+1.5;
-  var wide = MAX_BOXES_WIDTH*(1+PAD_RATIO);
+  var wide = MAX_BOXES_WIDTH*(1+PAD_RATIO)+(OOB_PAD*2);
   var scale_by_tall = Math.floor((height/tall)-0.5);
   var scale_by_wide = Math.floor((width/wide)-0.5);
 
@@ -66,15 +67,15 @@ function render_deinitialise()
 function render_initialise()
 {
   var oob_left=document.getElementById("div_out_of_bounds_left");
-  oob_left.style.width = (CURRENT_SCALE*(1+PAD_RATIO)*warehouse_first_column) + "px";
+  oob_left.style.width = (CURRENT_SCALE*((1+PAD_RATIO)*warehouse_first_column+OOB_PAD)) + "px";
   oob_left.style.left = "0px";
   var oob_right=document.getElementById("div_out_of_bounds_right");
-  oob_right.style.width = (CURRENT_SCALE*(1+PAD_RATIO)*(MAX_BOXES_WIDTH-warehouse_last_column-1)) + "px";
-  oob_right.style.left = (CURRENT_SCALE*(1+PAD_RATIO)*(warehouse_last_column+1)) + "px";
+  oob_right.style.width = (CURRENT_SCALE*((1+PAD_RATIO)*(MAX_BOXES_WIDTH-warehouse_last_column-1)+OOB_PAD)) + "px";
+  oob_right.style.left = (CURRENT_SCALE*((1+PAD_RATIO)*(warehouse_last_column+1)+OOB_PAD)) + "px";
 
   var parent_current=document.getElementById("div_current");
   parent_current.style.position = "relative";
-  parent_current.style.width = (CURRENT_SCALE*(1+PAD_RATIO)*MAX_BOXES_WIDTH) + "px";
+  parent_current.style.width = (CURRENT_SCALE*((1+PAD_RATIO)*MAX_BOXES_WIDTH+OOB_PAD*2)) + "px";
   parent_current.style.height = (CURRENT_SCALE*(MAX_BOXES_HEIGHT+1.5)) + "px";
 
   var parent_goal=document.getElementById("div_goal");
@@ -89,7 +90,7 @@ function render_initialise()
     child.id = "div_current_" + box.id;
     child.class = "box";
     child.style.position = "absolute";
-    child.style.left = (box.x*(1+PAD_RATIO)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE)+"px";
+    child.style.left = ((box.x*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE)+"px";
     child.style.top = ((MAX_BOXES_HEIGHT-box.y)*CURRENT_SCALE)+(0.5*CURRENT_SCALE)+"px";
     child.style.width = CURRENT_SCALE+"px";
     child.style.height = CURRENT_SCALE+"px";
@@ -103,7 +104,7 @@ function render_initialise()
     child = document.createElement("img");
     child.id = "div_goal_" + box.id;
     child.style.position = "absolute";
-    child.style.left = (box.x*(1+PAD_RATIO)*GOAL_SCALE+(PAD_RATIO/2)*GOAL_SCALE)+"px";
+    child.style.left = ((box.x*(1+PAD_RATIO))*GOAL_SCALE+(PAD_RATIO/2)*GOAL_SCALE)+"px";
     child.style.top = ((MAX_BOXES_HEIGHT-box.y)*GOAL_SCALE)+(0.5*GOAL_SCALE)+"px";
     child.style.width = GOAL_SCALE+"px";
     child.style.height = GOAL_SCALE+"px";
@@ -118,7 +119,7 @@ function render_current_state()
   {
     box = current_state_boxes[ i ];
     child = document.getElementById( "div_current_"+ box.id );
-    child.style.left = box.x*(1+PAD_RATIO)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE+"px";
+    child.style.left = (box.x*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE+"px";
     child.style.top = (MAX_BOXES_HEIGHT-box.y)*CURRENT_SCALE+(0.5*CURRENT_SCALE)+"px";
   }
 }
@@ -128,7 +129,7 @@ function render_crane()
   arm = document.getElementById("arm");
   arm.style.position = "absolute";
   arm.style.top = "0px";
-  arm.style.left = (crane_x * (1+PAD_RATIO) * CURRENT_SCALE + (PAD_RATIO/3)*CURRENT_SCALE)+"px";
+  arm.style.left = ((crane_x*(1+PAD_RATIO)+OOB_PAD) * CURRENT_SCALE + (PAD_RATIO/3)*CURRENT_SCALE)+"px";
   arm.height = ((MAX_BOXES_HEIGHT + 1 - crane_y) * CURRENT_SCALE)-(0.75*CURRENT_SCALE);
   arm.width = CURRENT_SCALE;
 	
@@ -155,7 +156,7 @@ function render_crane()
   for(var i=0;i<2;i++)
   {
     cranes[i].style.position = "absolute";
-    cranes[i].style.left = (crane_x * (1+PAD_RATIO) * CURRENT_SCALE) + "px";
+    cranes[i].style.left = ((crane_x * (1+PAD_RATIO)+OOB_PAD) * CURRENT_SCALE) + "px";
     cranes[i].style.top = ((MAX_BOXES_HEIGHT - crane_y) * CURRENT_SCALE) + "px";
     cranes[i].height = CURRENT_SCALE;
     cranes[i].width = CURRENT_SCALE * (1+PAD_RATIO);
