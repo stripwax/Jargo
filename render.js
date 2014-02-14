@@ -4,21 +4,25 @@ var GOAL_SCALE = 10;
 
 function render_set_scale()
 {
-  var div = document.getElementById("div_current");
+  var page_container_div = document.getElementById("div_page_container");
+  var above_div = document.getElementById("div_lhs_everything_else");
+  var div = document.getElementById("div_current_container");
 
-  var height = div.clientHeight;
-  var width = div.clientWidth;
-height=height*0.7; // this is a fudge. why doesn't above work correctly?
-width=width*0.7;
+  var page_height = page_container_div.clientHeight;
+  var above_height = above_div.clientHeight;
+  var height = page_height - above_height;
+  var width = above_div.clientWidth;
 
   var tall = MAX_BOXES_HEIGHT+1.5;
-  var wide = MAX_BOXES_WIDTH;
-  var scale_by_tall = (height/tall)-1;
-  var scale_by_wide = (width/wide)-1;
+  var wide = MAX_BOXES_WIDTH*(1+PAD_RATIO);
+  var scale_by_tall = Math.floor((height/tall)-0.5);
+  var scale_by_wide = Math.floor((width/wide)-0.5);
 
   console.log( "by tall = " + scale_by_tall + " , by wide = " + scale_by_wide );
 
   CURRENT_SCALE = Math.min(scale_by_tall, scale_by_wide);
+  console.log( 'width should be '+CURRENT_SCALE*wide );
+  console.log( 'height should be '+CURRENT_SCALE*tall );
   div.width=CURRENT_SCALE*wide + "px";
   div.height=CURRENT_SCALE*tall + "px";
 

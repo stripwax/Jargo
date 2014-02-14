@@ -16,10 +16,11 @@
 </head>
 
 <body>
+<div class="page_container" id="div_page_container"> <!-- entire viewport -->
 
-<div style="height:100vh"> <!-- entire viewport -->
-
-<div style="float:left;width:50%;height:100%">
+<div style="float:left;width:50%;height:100%;min-height:100%;">
+<div id="div_lhs_everything_else">
+<div style="float:top;position:relative;height:10%;">
 Choose A Level:<br>
 <select id="category" onchange="level_select_refresh();">
 </select>
@@ -27,11 +28,14 @@ Choose A Level:<br>
 </select>
 <br>
 <button type="button" onclick="load_level_select()">Load Level</button>
-<div style="height:10%">
+</div>
+<div style="position:relative;height:10%">
 <h1>Your Warehouse</h1>
 </div>
-<div class="current" style="width:100%;height:90%;position:relative">
-<div id="div_current" style="position:relative;width:100%;height:100%;margin:0 auto;padding:0;border:2px solid #000;float:left">
+</div><!-- div_lhs_everything_else -->	
+
+<div class="current_container" id="div_current_container"> <!-- this contains just the remainder of the page, into which we size and place the other things -->
+<div class="current" id="div_current"> <!-- this contains the warehouse -->
 <div class="current-background" style="position:relative;width:100%;height:100%">&nbsp;</div>
 <div id="div_out_of_bounds_left" class="current_out_of_bounds"></div>
 <div id="div_out_of_bounds_right" class="current_out_of_bounds"></div>
@@ -44,7 +48,7 @@ Choose A Level:<br>
 </div>
 
 
-<div style="float:left;width:50%;height:100%" id="RHS">
+<div style="float:right;width:50%;height:100%;min-height:100%" id="RHS">
 <p id="program"></p>
 <button type="button" onclick="game_reset()">Reset</button>
 <button type="button" onclick="game_step()" id="step_button">Step</button>
