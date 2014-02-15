@@ -1,3 +1,60 @@
+.c_claw_shut
+{
+  position:absolute;
+  background-image:url(clw-shut.svg);
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  z-index:3;
+  transition:top 50ms linear;
+  transition:left 50ms linear;
+}
+.c_claw_open
+{
+  position:absolute;
+  background-image:url(clw-open.svg);
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  z-index:3;
+  transition:top 50ms linear;
+  transition:left 50ms linear;
+}
+.c_arm
+{
+  position:absolute;
+  background-image:url(arm.svg);
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  z-index:2;
+  transition:left 50ms linear;
+  transition:height 50ms linear;
+  transition:background-size 50ms linear;
+}
+.crate
+{
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index:4;
+  transition: left 50ms linear;
+  transition: top 50ms linear;
+  transition: background-size 50ms linear;
+}
+.crate0
+{
+  background-image: url(crate0.svg);
+}
+.crate1
+{
+  background-image: url(crate1.svg);
+}
+.crate2
+{
+  background-image: url(crate2.svg);
+}
+.crate3
+{
+  background-image: url(crate3.svg);
+}
+
 body,html
 {
   height:100%;
@@ -49,7 +106,6 @@ margin-right: 0;
   height:100%;
   top:0px;
   left:0px;
-  z-order:2;
 }
 
 .current
@@ -64,26 +120,6 @@ margin-right: 0;
   color: white;
   width:100%;
   border:2px #000;
-}
-
-#arm
-{
-  transition:50ms linear;
-}
-
-#claw
-{
-  transition:50ms linear;
-}
-
-#claw-shut
-{
-  transition:50ms linear;
-}
-
-.box
-{
-  transition:50ms linear;
 }
 
 p

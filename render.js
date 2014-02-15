@@ -41,7 +41,7 @@ function redraw()
   }
   else
   {
-    return( 100 );
+    return( 50 );
   }
 }
 
@@ -86,15 +86,14 @@ function render_initialise()
   for( var i = 0; i < current_state_boxes.length; i++ )
   {
     box = current_state_boxes[i];
-    child = document.createElement("img");
+    child = document.createElement("div");
     child.id = "div_current_" + box.id;
-    child.class = "box";
     child.style.position = "absolute";
     child.style.left = ((box.x*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE)+"px";
     child.style.top = ((MAX_BOXES_HEIGHT-box.y)*CURRENT_SCALE)+(0.5*CURRENT_SCALE)+"px";
     child.style.width = CURRENT_SCALE+"px";
     child.style.height = CURRENT_SCALE+"px";
-    child.src="crate"+box.type+".svg";
+    child.className = "crate crate"+box.type;
     parent_current.appendChild(child);
   }
 
@@ -108,7 +107,7 @@ function render_initialise()
     child.style.top = ((MAX_BOXES_HEIGHT-box.y)*GOAL_SCALE)+(0.5*GOAL_SCALE)+"px";
     child.style.width = GOAL_SCALE+"px";
     child.style.height = GOAL_SCALE+"px";
-    child.src="crate"+box.type+".svg";
+    child.className = "crate crate"+box.type;
     parent_goal.appendChild(child);
   }
 }
@@ -130,11 +129,10 @@ function render_crane()
   arm.style.position = "absolute";
   arm.style.top = "0px";
   arm.style.left = ((crane_x*(1+PAD_RATIO)+OOB_PAD) * CURRENT_SCALE + (PAD_RATIO/3)*CURRENT_SCALE)+"px";
-  arm.height = ((MAX_BOXES_HEIGHT + 1 - crane_y) * CURRENT_SCALE)-(0.75*CURRENT_SCALE);
-  arm.width = CURRENT_SCALE;
+  arm.style.height = ((MAX_BOXES_HEIGHT + 1 - crane_y) * CURRENT_SCALE)-(0.75*CURRENT_SCALE)+"px";
+  arm.style.width = CURRENT_SCALE+"px";
 	
-  claw_open = document.getElementById("claw");
-  claw_shut = document.getElementById("claw_shut");
+  var claw = document.getElementById("claw");
 
   // the extra crane_y condition here ensures that the crane never looks like
   // it's closed when it's at the same height as a box (even if it hasn't "yet"
@@ -144,24 +142,18 @@ function render_crane()
   // you know, like in the real world.  IT IS NICE.
   if(crane_box === "None" && current_state[crane_x].length<crane_y)
   {
-    var crane = claw_shut;
-    var other = claw_open;
+    var which_claw = "c_claw_shut";
   }
   else
   {
-    var crane = claw_open;
-    var other = claw_shut;
+    var which_claw = "c_claw_open";
   }
-  var cranes=[claw_open,claw_shut];
-  for(var i=0;i<2;i++)
-  {
-    cranes[i].style.position = "absolute";
-    cranes[i].style.left = ((crane_x * (1+PAD_RATIO)+OOB_PAD) * CURRENT_SCALE) + "px";
-    cranes[i].style.top = ((MAX_BOXES_HEIGHT - crane_y) * CURRENT_SCALE) + "px";
-    cranes[i].height = CURRENT_SCALE;
-    cranes[i].width = CURRENT_SCALE * (1+PAD_RATIO);
-  }
-  other.style.visibility="hidden";
-  crane.style.visibility="visible";
+
+  claw.style.position = "absolute";
+  claw.style.left = ((crane_x * (1+PAD_RATIO)+OOB_PAD) * CURRENT_SCALE) + "px";
+  claw.style.top = ((MAX_BOXES_HEIGHT - crane_y) * CURRENT_SCALE) + "px";
+  claw.style.height = CURRENT_SCALE+"px";
+  claw.style.width = CURRENT_SCALE * (1+PAD_RATIO)+"px";
+  claw.className = which_claw;
 }
 
