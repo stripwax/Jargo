@@ -68,10 +68,10 @@ function program_to_string()
       }
       else
       {
-        string += "{"+progfunc[j].Cond+"|"+progfunc[j].Cmd+"},"; 
+        string += progfunc[j].Cond+"|"+progfunc[j].Cmd+","; 
       }
-      string += ":";
     }
+    string += ":";
   }
   return(string);
 }
