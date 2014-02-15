@@ -94,3 +94,18 @@ margin-bottom: 0;
 margin-left: 0;
 margin-right: 0;
 }
+
+.prog_container
+{
+}
+.prog_name
+{
+  border:2px solid black;
+  float:left;
+  background-color:#80ffff;
+}
+.prog_cmd
+{
+  border:2px solid black;
+  float:left;
+}

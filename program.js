@@ -1,5 +1,8 @@
-// Cmd = one of LEFT, RIGHT, GRAB, F1, F2, F3, F4
+// Cmd = one of None,LEFT, RIGHT, GRAB, F1, F2, F3, F4
 // Cond = one of None, Empty, Red, Yellow, Green, Blue, Any
+
+var CMD_CHOICES=["None","LEFT","RIGHT","GRAB","F1","F2","F3","F4"];
+var COND_CHOICES=["None","Empty","Red","Yellow","Green","Blue","Any"];
 
 var PROGRAM_MAX_FUNCS = 4;
 var PROGRAM_FUNC_SIZE = [8,8,8,5]; // this is cargo bot
@@ -21,6 +24,8 @@ function reset_program()
   program_state = "STOPPED";
   if(program==null)
     program_load_from_cookie();
+
+  animate_program();
 }
 
 function program_load_from_cookie()
@@ -46,6 +51,8 @@ function program_load_from_cookie()
         program[i][j]={Cond:"None",Cmd:"None"};
     }
   }
+
+  animate_program();
 }
 
 function program_save_to_cookie()
@@ -215,46 +222,62 @@ function program_step_post()
     next_PC_ROW = null;
   };
 }
+
 function animate_program()
 {
   var x = document.getElementById("program");
   var text = "HERE IS THE PROGRAM TO OPERATE THE CRANE:<br>";
+  text += '<div class="prog_container"><table>';
   for( var i = 0; i < program.length; i++ )
   {
-    text = text + "F" + (i+1) + ": ";
+    text += '<tr>';
+    text += '<td><div class="prog_name">F' + (i+1) + ":</div></td>";
     for( var j = 0; j < program[ i ].length; j++ )
     {
       var Cmd = program[i][j].Cmd;
       var Cond = program[i][j].Cond;
- 
+
+      text += "<td>";
       if( j == PC && i == PC_ROW )
       {
         if( program_state == "EXECUTING" )
         {
-          text = text + "[";
+          text += "[";
         }
         else
         {
-          text = text + ">";
+          text += "*";
         }
       }
+      text += "</td>";
 
+      text += '<td><div id="PROG_CELL_'+i+'_'+j+'" class="prog_cmd" onclick="program_cell_click('+i+','+j+');">';
       if( Cond != "None" )
-        text = text + "if " + Cond + ", ";
-      text = text + Cmd;
+        text += "if " + Cond + ", ";
+      if( Cmd != "None" )
+      {
+        text += Cmd;
+      }
+      else
+      {
+        text += "&nbsp;&nbsp;&nbsp;&nbsp;";
+      }
 
+      text += '</div></td>';
+      text += "<td>";
       if( j == PC && i == PC_ROW && program_state == "EXECUTING" )
       {
-        text = text + "]";
+        text += "]";
       }
-      
-      text = text + "  ,  ";
+      text += "</td>";
     }
     if( j == PC && i == PC_ROW ) // this is one past the end of the program length for this row, i.e. the value of j AFTER the above for loop
-      text = text + "||";
-
-    text = text + "<br>";
+    {
+      text += "*";
+    }
+    text += "</tr></div>";
   }
-  
+  text += "</table></div>";
+
   x.innerHTML = text;
 }
