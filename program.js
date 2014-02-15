@@ -1,7 +1,10 @@
 // Cmd = one of LEFT, RIGHT, GRAB, F1, F2, F3, F4
 // Cond = one of None, Empty, Red, Yellow, Green, Blue, Any
 
-var program = new Array();
+var PROGRAM_MAX_FUNCS = 4;
+var PROGRAM_FUNC_SIZE = [8,8,8,5]; // this is cargo bot
+
+var program = null;
 var callstack = new Array();
 var PC = 0;
 var PC_ROW = 0;
@@ -15,33 +18,90 @@ function reset_program()
   PC = 0;
   PC_ROW = 0;
   callstack = new Array();
-  if( program.length == 0 )
-    default_program();
   program_state = "STOPPED";
+  if(program==null)
+    program_load_from_cookie();
 }
 
-function default_program()
+function program_load_from_cookie()
 {
-  program = [
-    [
-	{ Cond:"None", Cmd:"GRAB" },
-	{ Cond:"None", Cmd:"RIGHT" },
-	{ Cond:"None", Cmd:"RIGHT" },
-	{ Cond:"None", Cmd:"GRAB" },
-	{ Cond:"None", Cmd:"LEFT" },
-	{ Cond:"None", Cmd:"GRAB" },
-	{ Cond:"None",Cmd:"LEFT" },
-	{ Cond:"None",Cmd:"GRAB" },
-	{ Cond:"None",Cmd:"RIGHT" },
-	{ Cond:"None",Cmd:"RIGHT" },
-	{ Cond:"None",Cmd:"GRAB" },
-	{ Cond:"None",Cmd:"LEFT" },
-	{ Cond:"None",Cmd:"GRAB" }
-    ],
-    [],
-    [],
-    []
-  ];
+  program = null;
+
+  program_string = getCookie("program_"+current_level_category+"_"+current_level_name);
+  if(program_string != null)
+    program_from_string(program_string);
+
+  if(program==null)
+    program=[[],[],[],[]];
+
+  for(var i=0;i<3;i++)
+    program[i].length=8;
+  program[3].length=5;
+ 
+  for(var i=0;i<program.length;i++)
+  {
+    for(var j=0;j<program[i].length;j++)
+    {
+      if(program[i][j]==null)
+        program[i][j]={Cond:"None",Cmd:"None"};
+    }
+  }
+}
+
+function program_save_to_cookie()
+{
+  setCookie("program_"+current_level_category+"_"+current_level_name,program_to_string(),null);
+}
+
+function program_to_string()
+{
+  string="";
+  for(var i=0;i<Math.min(program.length,PROGRAM_MAX_FUNCS);i++)
+  {
+    progfunc=program[i];
+    for(var j=0;j<Math.min(progfunc.length,PROGRAM_FUNC_SIZE[i]);j++)
+    {
+      if(progfunc[j]==null)
+      {
+        string += ","
+      }
+      else
+      {
+        string += "{"+progfunc[j].Cond+"|"+progfunc[j].Cmd+"},"; 
+      }
+      string += ":";
+    }
+  }
+  return(string);
+}
+
+function program_from_string( string )
+{
+  var i=0;
+  var j=0;
+  program=[ [],[],[],[] ];
+  var func_split = string.split(':');
+  for(var i=0;i<Math.min(func_split.length,PROGRAM_MAX_FUNCS);i++)
+  {
+    progfunc=[];
+    var cmd_split = (func_split[i]).split(',');
+    for(var j=0;j<Math.min(cmd_split.length,PROGRAM_FUNC_SIZE[i]);j++)
+    {
+      if(cmd_split[j].length==0)
+      {
+        progfunc[j]=null;
+        continue;
+      }
+      var cond_cmd=(cmd_split[j]).split('|');
+      if(cond_cmd.length != 2)
+      {
+        progfunc[j]=null;
+        continue;
+      }
+      progfunc[j]={Cond : cond_cmd[0], Cmd : cond_cmd[1] };
+    }
+    program[i]=progfunc;
+  }
 }
 
 function program_step_pre()

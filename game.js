@@ -22,8 +22,12 @@ function on_load()
 
   if( current_level_category == null || current_level_name == null )
   {
-    load_level(0);
+    var level_node = document.getElementById("level_select");
+    current_level_category = selected_category;
+    current_level_name = level_node.options[level_node.selectedIndex].text;
+    load_level_select();
     game_reset();
+    reset_program();
   }
 }
 
