@@ -227,7 +227,7 @@ function animate_program()
 {
   var x = document.getElementById("program");
   var text = "HERE IS THE PROGRAM TO OPERATE THE CRANE:<br>";
-  text += '<div class="prog_container"><table>';
+  text += '<div class="prog_container"><table class="prog_table">';
   for( var i = 0; i < program.length; i++ )
   {
     text += '<tr>';
@@ -251,7 +251,7 @@ function animate_program()
       }
       text += "</td>";
 
-      text += '<td><div id="PROG_CELL_'+i+'_'+j+'" class="prog_cmd" onclick="program_cell_click('+i+','+j+');">';
+      text += '<td class="prog_cmd"><div id="PROG_CELL_'+i+'_'+j+'" onclick="program_cell_click('+i+','+j+');">';
       if( Cond != "None" )
         text += "if " + Cond + ", ";
       if( Cmd != "None" )

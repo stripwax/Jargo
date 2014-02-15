@@ -98,14 +98,16 @@ margin-right: 0;
 .prog_container
 {
 }
+.prog_table td
+{
+  padding:0;
+}
 .prog_name
 {
   border:2px solid black;
-  float:left;
   background-color:#80ffff;
 }
 .prog_cmd
 {
   border:2px solid black;
-  float:left;
 }
