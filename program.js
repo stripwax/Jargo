@@ -50,7 +50,8 @@ function program_load_from_cookie()
 
 function program_save_to_cookie()
 {
-  setCookie("program_"+current_level_category+"_"+current_level_name,program_to_string(),null);
+  if(program!=null)
+    setCookie("program_"+current_level_category+"_"+current_level_name,program_to_string(),null);
 }
 
 function program_to_string()
