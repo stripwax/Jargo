@@ -20,11 +20,7 @@ function render_set_scale()
   var scale_by_tall = Math.floor((height/tall)-0.5);
   var scale_by_wide = Math.floor((width/wide)-0.5);
 
-  console.log( "by tall = " + scale_by_tall + " , by wide = " + scale_by_wide );
-
   CURRENT_SCALE = Math.min(scale_by_tall, scale_by_wide);
-  console.log( 'width should be '+CURRENT_SCALE*wide );
-  console.log( 'height should be '+CURRENT_SCALE*tall );
   div.width=CURRENT_SCALE*wide + "px";
   div.height=CURRENT_SCALE*tall + "px";
 
@@ -54,13 +50,10 @@ function render_deinitialise()
   for( var i = 0; i < current_state_boxes.length; i++ )
   {
     var box = current_state_boxes[i];
-    console.log( "removing div_current_"+box.id );
-    var box = current_state_boxes[i];
     var child = document.getElementById("div_current_"+box.id);
     parent_current.removeChild(child);
 
     var box = goal_state_boxes[i];
-    console.log( "removing div_goal_"+box.id );
     var child = document.getElementById("div_goal_"+box.id);
     parent_goal.removeChild(child);
   }
