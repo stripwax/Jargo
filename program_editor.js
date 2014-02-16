@@ -11,8 +11,9 @@ function program_command_cell_click(i,j)
       break;
     }
   }
-  cmd.Cond = "None";
   animate_program();
+
+  return(false);
 }
 function program_condition_cell_click(i,j)
 {
@@ -34,6 +35,7 @@ function program_condition_cell_click(i,j)
     }
   }
   animate_program();
+  return(false);
 }
 
 function drop()
