@@ -263,29 +263,23 @@ function animate_program()
       }
       text += "</td>";
 
-      text += '<td class="prog_cmd">';
-      text += '<div style="min-width:100%" id="COND_CELL_'+i+'_'+j+'" onclick="program_condition_cell_click('+i+','+j+');">';
-      if( Cond != "None" )
+      text += '<td class="prog_cmd_slot">';
+      text += '<div class="prog_cond prog_cond_'+Cond+'" id="COND_CELL_'+i+'_'+j+'" onclick="program_condition_cell_click('+i+','+j+');">';
+      text += '&nbsp;</div>'; // close cond
+
+      text += '<div class="prog_cmd prog_cmd_'+Cmd+'" id="PROG_CELL_'+i+'_'+j+'" onclick="program_command_cell_click('+i+','+j+');">';
+      if( Cmd != "None" && Cmd != "LEFT" && Cmd != "RIGHT" && Cmd != "GRAB" )
       {
-        text += "if " + Cond + ", ";
+        text += "<span>"+Cmd+"</span>";
       }
       else
       {
-        // anything, so long as it's not empty. an empty div is not clickable!
-        text += "&nbsp;";
-      }
-      text += '</div>';
-      text += '<div style="width:100%" id="PROG_CELL_'+i+'_'+j+'" onclick="program_command_cell_click('+i+','+j+');">';
-      if( Cmd != "None" )
-      {
-        text += Cmd;
-      }
-      else
-      {
-        text += "&nbsp;&nbsp;&nbsp;&nbsp;";
+        // anything so long as it's not empty actually
+        text += "<span>&nbsp;</span>";
       }
 
-      text += '</div></td>';
+      text += '</div>'; // close cmd
+      text += '</td>';
       text += "<td>";
       if( j == PC && i == PC_ROW && program_state == "EXECUTING" )
       {
