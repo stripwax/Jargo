@@ -90,15 +90,14 @@ function render_initialise()
 
   for( var i = 0; i < current_state_boxes.length; i++ )
   {
-    box = current_state_boxes[i];
-    child = document.createElement("div");
+    var box = current_state_boxes[i];
+    child = box.getDiv();
     child.id = "div_current_" + box.id;
     child.style.position = "absolute";
     child.style.left = ((box.x*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE)+"px";
     child.style.top = ((MAX_BOXES_HEIGHT-box.y)*CURRENT_SCALE)+(0.5*CURRENT_SCALE)+"px";
     child.style.width = CURRENT_SCALE+"px";
     child.style.height = CURRENT_SCALE+"px";
-    child.className = "crate crate"+box.type;
     parent_current.appendChild(child);
   }
 
@@ -130,14 +129,13 @@ function render_initialise()
   for( var i = 0; i < goal_state_boxes.length; i++ )
   {
     box = goal_state_boxes[ i ];
-    child = document.createElement("div");
+    child = box.getDiv();
     child.id = "div_goal_" + box.id;
     child.style.position = "absolute";
     child.style.left = ((box.x*(1+PAD_RATIO))*GOAL_SCALE+(PAD_RATIO/2)*GOAL_SCALE)+"px";
     child.style.top = ((MAX_BOXES_HEIGHT-box.y)*GOAL_SCALE)+(0.5*GOAL_SCALE)+"px";
     child.style.width = GOAL_SCALE+"px";
     child.style.height = GOAL_SCALE+"px";
-    child.className = "crate crate"+box.type;
     parent_goal.appendChild(child);
   }
 }

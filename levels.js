@@ -100,11 +100,11 @@ function load_level(x)
     current_column = [];
     for( var j = 0; j < level.initial_state[i].length; j++ )
     {
-      box_info = {x:i + warehouse_first_column, y:j, type:level.initial_state[i][j], id:id };
-      current_column.push( box_info );
-      current_state_boxes.push( box_info );
-      clone_box = box_info.clone();
-      initial_column.push( clone_box );
+      var crate = new Crate( i + warehouse_first_column, j, level.initial_state[i][j], id );
+      initial_column.push( crate );
+      var clone_crate = crate.clone();
+      current_column.push( clone_crate );
+      current_state_boxes.push( clone_crate );
       id = id + 1;
     }
     initial_state[i + warehouse_first_column] = initial_column;
@@ -119,9 +119,9 @@ function load_level(x)
     column = [];
     for( var j = 0; j < level.goal_state[i].length; j++ )
     {
-      box_info = {x:i + warehouse_first_column, y:j, type:level.goal_state[i][j], id:id };
-      column.push( box_info );
-      goal_state_boxes.push( box_info );
+      var crate = new Crate(i + warehouse_first_column, j, level.goal_state[i][j], id );
+      column.push( crate );
+      goal_state_boxes.push( crate );
       id = id + 1;
     }
     goal_state[i+warehouse_first_column] = column;
