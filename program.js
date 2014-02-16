@@ -239,7 +239,7 @@ function animate_program()
 {
   var x = document.getElementById("program");
   var text = "HERE IS THE PROGRAM TO OPERATE THE CRANE:<br>";
-  text += '<div class="prog_container"><table class="prog_table">';
+  text += '<div class="prog_container"><table class="prog_table" width="100%">';
   for( var i = 0; i < program.length; i++ )
   {
     text += '<tr>';
@@ -263,9 +263,19 @@ function animate_program()
       }
       text += "</td>";
 
-      text += '<td class="prog_cmd"><div id="PROG_CELL_'+i+'_'+j+'" onclick="program_cell_click('+i+','+j+');">';
+      text += '<td class="prog_cmd">';
+      text += '<div style="min-width:100%" id="COND_CELL_'+i+'_'+j+'" onclick="program_condition_cell_click('+i+','+j+');">';
       if( Cond != "None" )
+      {
         text += "if " + Cond + ", ";
+      }
+      else
+      {
+        // anything, so long as it's not empty. an empty div is not clickable!
+        text += "&nbsp;";
+      }
+      text += '</div>';
+      text += '<div style="width:100%" id="PROG_CELL_'+i+'_'+j+'" onclick="program_command_cell_click('+i+','+j+');">';
       if( Cmd != "None" )
       {
         text += Cmd;

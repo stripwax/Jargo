@@ -1,4 +1,4 @@
-function program_cell_click(i,j)
+function program_command_cell_click(i,j)
 {
   var c = document.getElementById("PROG_CELL_"+i+"_"+j);
   var cmd = program[i][j];
@@ -12,7 +12,27 @@ function program_cell_click(i,j)
     }
   }
   cmd.Cond = "None";
-  program[i][j]=cmd;
+  animate_program();
+}
+function program_condition_cell_click(i,j)
+{
+  var c = document.getElementById("COND_CELL_"+i+"_"+j);
+  var cmd = program[i][j];
+
+  // can't set a conditional if no command..
+  // I mean, I could let you do it, but it's redundant and confusing!
+  if(cmd.Cmd == "None" )
+    return;
+
+  for(var x=0;x<COND_CHOICES.length;x++)
+  {
+    if(COND_CHOICES[x] == cmd.Cond)
+    {
+      var y = (x+1) % COND_CHOICES.length;
+      cmd.Cond = COND_CHOICES[y];
+      break;
+    }
+  }
   animate_program();
 }
 
