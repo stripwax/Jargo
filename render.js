@@ -2,6 +2,7 @@ var CURRENT_SCALE = 10;
 var PAD_RATIO = 0.5;
 var GOAL_SCALE = 10;
 var OOB_PAD = 0.5; // this means 'how many boxes-worth of padding do we ALWAYS show as out-of-bounds on the far left and right of the warehouse'
+var PALLET_RATIO = 0.5; // this means 'how many boxes-worth of size do we pad below with, to show the pallet (stacking column) numbers'
 
 function render_set_scale()
 {
@@ -14,7 +15,7 @@ function render_set_scale()
   var height = page_height - above_height;
   var width = above_div.clientWidth;
 
-  var tall = MAX_BOXES_HEIGHT+1.5;
+  var tall = MAX_BOXES_HEIGHT+1.5+PALLET_RATIO;
   var wide = MAX_BOXES_WIDTH*(1+PAD_RATIO)+(OOB_PAD*2);
   var scale_by_tall = Math.floor((height/tall)-0.5);
   var scale_by_wide = Math.floor((width/wide)-0.5);
@@ -63,6 +64,16 @@ function render_deinitialise()
     var child = document.getElementById("div_goal_"+box.id);
     parent_goal.removeChild(child);
   }
+
+  for( var i=warehouse_first_column;i<=warehouse_last_column;i++)
+  {
+    var child = document.getElementById("div_pallet_"+i);
+    if(child!=null)
+      parent_current.removeChild(child);
+    var child = document.getElementById("div_goal_pallet_"+i);
+    if(child!=null)
+      parent_goal.removeChild(child);
+  }
 }
 
 function render_initialise()
@@ -98,10 +109,35 @@ function render_initialise()
     parent_current.appendChild(child);
   }
 
+  for( var i = warehouse_first_column; i <= warehouse_last_column; i++ )
+  {
+    child = document.createElement("div");
+    child.id = "div_pallet_" + i;
+    child.style.position = "absolute";
+    child.style.left = ((i*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE)+"px";
+    child.style.top = ((MAX_BOXES_HEIGHT+1)*CURRENT_SCALE)+(0.5*CURRENT_SCALE)+"px";
+    child.style.width = CURRENT_SCALE+"px";
+    child.style.height = CURRENT_SCALE*PALLET_RATIO+"px";
+    child.className = "pallet";
+    child.innerHTML = 1 + i - warehouse_first_column;
+    parent_current.appendChild(child);
+
+    child = document.createElement("div");
+    child.id = "div_goal_pallet_" + i;
+    child.style.position = "absolute";
+    child.style.left = ((i*(1+PAD_RATIO)+OOB_PAD)*GOAL_SCALE+(PAD_RATIO/2)*GOAL_SCALE)+"px";
+    child.style.top = ((MAX_BOXES_HEIGHT+1)*GOAL_SCALE)+(0.5*GOAL_SCALE)+"px";
+    child.style.width = GOAL_SCALE+"px";
+    child.style.height = GOAL_SCALE*PALLET_RATIO+"px";
+    child.className = "pallet";
+    child.innerHTML = 1 + i - warehouse_first_column;
+    parent_goal.appendChild(child);
+  }
+
   for( var i = 0; i < goal_state_boxes.length; i++ )
   {
     box = goal_state_boxes[ i ];
-    child = document.createElement("img");
+    child = document.createElement("div");
     child.id = "div_goal_" + box.id;
     child.style.position = "absolute";
     child.style.left = ((box.x*(1+PAD_RATIO))*GOAL_SCALE+(PAD_RATIO/2)*GOAL_SCALE)+"px";

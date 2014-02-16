@@ -64,7 +64,11 @@
 {
   background-image: url(crate3.svg);
 }
-
+.pallet
+{
+  text-align:center;
+  background-color:#103050;
+}
 body,html
 {
   height:100%;
