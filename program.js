@@ -3,6 +3,7 @@
 
 var CMD_CHOICES=["None","LEFT","RIGHT","GRAB","F1","F2","F3","F4"];
 var COND_CHOICES=["None","Empty","Red","Yellow","Green","Blue","Any"];
+var COND_TYPE_MAP={Blue:0,Yellow:1,Red:2,Green:3};
 
 var PROGRAM_MAX_FUNCS = 4;
 var PROGRAM_FUNC_SIZE = [8,8,8,5]; // this is cargo bot
@@ -152,7 +153,7 @@ function program_step_pre()
     {
       match = true;
     }
-    else if( Cond === crane_box )
+    else if( COND_TYPE_MAP[Cond] === crane_box.type )
     {
       match = true;
     }
