@@ -118,7 +118,7 @@ function render_initialise()
     child = document.createElement("div");
     child.id = "div_goal_pallet_" + i;
     child.style.position = "absolute";
-    child.style.left = ((i*(1+PAD_RATIO)+OOB_PAD)*GOAL_SCALE+(PAD_RATIO/2)*GOAL_SCALE)+"px";
+    child.style.left = ((i*(1+PAD_RATIO))*GOAL_SCALE+(PAD_RATIO/2)*GOAL_SCALE)+"px";
     child.style.top = ((MAX_BOXES_HEIGHT+1)*GOAL_SCALE)+(0.5*GOAL_SCALE)+"px";
     child.style.width = GOAL_SCALE+"px";
     child.style.height = GOAL_SCALE*PALLET_RATIO+"px";
