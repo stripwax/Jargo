@@ -124,25 +124,21 @@ function program_step_pre()
   next_PC = null;
   next_PC_ROW = null;
 
-  if( PC_ROW >= program.length || PC >= program[ PC_ROW ].length )
+  var something_to_do = false;
+
+  while( !something_to_do && PC_ROW < program.length && PC < program[ PC_ROW ].length )
   {
-    if( callstack.length > 0 )
+    var Cond = program[ PC_ROW ][ PC ].Cond;
+    var Cmd  = program[ PC_ROW ][ PC ].Cmd;
+
+    // optimise out empty program command slots 'as if they were not there'
+    if( Cmd=="None" )
     {
-      // pop
-      pop = callstack.pop();
-      next_PC = pop.PC;
-      next_PC_ROW = pop.PC_ROW;
+      PC++;
+      continue;
     }
-    else
-    {
-      program_state = "STOPPED";
-      game_stop();
-    }
-  }
-  else
-  {
-    Cond = program[ PC_ROW ][ PC ].Cond;
-    Cmd  = program[ PC_ROW ][ PC ].Cmd;
+
+    something_to_do = true;
 
     if( Cond === "None" )
     { 
@@ -199,6 +195,22 @@ function program_step_pre()
         next_PC_ROW = 3;
         next_PC = 0;
       }
+    }
+  }
+
+  if( !something_to_do )
+  {
+    if( callstack.length > 0 )
+    {
+      // pop
+      pop = callstack.pop();
+      next_PC = pop.PC;
+      next_PC_ROW = pop.PC_ROW;
+    }
+    else
+    {
+      program_state = "STOPPED";
+      game_stop();
     }
   }
 }
