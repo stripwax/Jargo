@@ -53,13 +53,13 @@ function render_deinitialise()
   for( var i = 0; i < current_state_boxes.length; i++ )
   {
     console.log( "removing div_current_"+box.id );
-    box = current_state_boxes[i];
-    child = document.getElementById("div_current_"+box.id);
+    var box = current_state_boxes[i];
+    var child = document.getElementById("div_current_"+box.id);
     parent_current.removeChild(child);
 
-    box = goal_state_boxes[i];
+    var box = goal_state_boxes[i];
     console.log( "removing div_goal_"+box.id );
-    child = document.getElementById("div_goal_"+box.id);
+    var child = document.getElementById("div_goal_"+box.id);
     parent_goal.removeChild(child);
   }
 }
@@ -116,16 +116,19 @@ function render_current_state()
 {
   for( var i = 0; i < current_state_boxes.length; i++ )
   {
-    box = current_state_boxes[ i ];
-    child = document.getElementById( "div_current_"+ box.id );
-    child.style.left = (box.x*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE+"px";
-    child.style.top = (MAX_BOXES_HEIGHT-box.y)*CURRENT_SCALE+(0.5*CURRENT_SCALE)+"px";
+    var box = current_state_boxes[ i ];
+    if(game_state!="RUNNING" || box.id==crane_box.id)
+    {
+      child = document.getElementById( "div_current_"+ box.id );
+      child.style.left = (box.x*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE+"px";
+      child.style.top = (MAX_BOXES_HEIGHT-box.y)*CURRENT_SCALE+(0.5*CURRENT_SCALE)+"px";
+    }
   }
 }
 
 function render_crane()
 {
-  arm = document.getElementById("arm");
+  var arm = document.getElementById("arm");
   arm.style.position = "absolute";
   arm.style.top = "0px";
   arm.style.left = ((crane_x*(1+PAD_RATIO)+OOB_PAD) * CURRENT_SCALE + (PAD_RATIO/3)*CURRENT_SCALE)+"px";
