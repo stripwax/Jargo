@@ -23,9 +23,6 @@ function load_level_from_choice( category, level_name )
       load_level(i);
   }
 
-  current_level_category = category;
-  current_level_name = level_name;
-
   program_load_from_cookie();
 }
 
@@ -128,7 +125,9 @@ function load_level(x)
   }
 
   initial_crane_x = level.crane_x + warehouse_first_column;
- 
+  current_level_category = level.rating;
+  current_level_name = level.title;
+
   console.log("doing render initialize");
   render_initialise();
   console.log("done render initialize");
