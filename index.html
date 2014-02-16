@@ -51,13 +51,13 @@ Choose A Level:<br>
 
 <div style="float:right;width:50%;height:100%;min-height:100%" id="RHS">
 <div id="program"></div>
-<button type="button" onclick="game_reset()">Reset</button>
-<button type="button" onclick="game_step()" id="step_button">Step</button>
-<button type="button" onclick="game_run()" id="run_button">Run</button>
-<div style="height:10%">
-  What you want to end up with
-</div>
-<div id="div_goal" style="width:50%;height:45%;border:2px solid #000;background-color:yellow;float:left">
+<button type="button" onclick="game_run()" id="run_button">GO!</button>
+<button type="button" onclick="game_step()" id="step_button">One Step</button>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" onclick="game_reset()">Restart</button>
+<div style="position:relative;height:100%">
+<h3><span id="goal_text">Your Goal:</span></h3>
+<div id="div_goal" style="position:relative;width:50%;height:100%;border:2px solid #000;background-color:yellow;float:left"></div>
 </div>
 </div>
 

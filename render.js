@@ -138,6 +138,9 @@ function render_initialise()
     child.style.height = GOAL_SCALE+"px";
     parent_goal.appendChild(child);
   }
+
+  var goal_description = document.getElementById("goal_text");
+  goal_description.innerHTML = "Your Goal: " + current_level_name;
 }
 
 function render_current_state()
