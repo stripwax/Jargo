@@ -13,6 +13,8 @@ function program_command_cell_click(i,j)
   }
   animate_program();
 
+  program_save_to_cookie();
+
   return(false);
 }
 function program_condition_cell_click(i,j)
@@ -35,6 +37,9 @@ function program_condition_cell_click(i,j)
     }
   }
   animate_program();
+
+  program_save_to_cookie();
+
   return(false);
 }
 
