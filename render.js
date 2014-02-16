@@ -52,6 +52,7 @@ function render_deinitialise()
 
   for( var i = 0; i < current_state_boxes.length; i++ )
   {
+    var box = current_state_boxes[i];
     console.log( "removing div_current_"+box.id );
     var box = current_state_boxes[i];
     var child = document.getElementById("div_current_"+box.id);
