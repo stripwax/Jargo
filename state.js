@@ -43,14 +43,14 @@ function reset_state()
 
   for( var i = 0; i < initial_state.length; i++ )
   {
-    current_column = [];
+    var current_column = [];
     if(undefined != initial_state[i] )
     {
       for( var j = 0; j < initial_state[i].length; j++ )
       {
-        box_info = initial_state[i][j].clone();
-        current_column.push( box_info );
-        current_state_boxes.push( box_info );
+        var crate = initial_state[i][j].clone();
+        current_column.push( crate );
+        current_state_boxes.push( crate );
       }
       current_state[i] = current_column;
     }
