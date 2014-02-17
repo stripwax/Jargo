@@ -79,7 +79,6 @@ function load_level(x)
   render_deinitialise();
 
   game_state = "stopped";
-  console.log( "Loading level " + x );
   level = levels_data[ x ];
   level_check_sanity(x);
 
@@ -128,9 +127,7 @@ function load_level(x)
   current_level_category = level.rating;
   current_level_name = level.title;
 
-  console.log("doing render initialize");
   render_initialise();
-  console.log("done render initialize");
 
   game_reset();
 }
