@@ -18,7 +18,7 @@ var program_state = "STOPPED";
 
 var next_PC = null;
 var next_PC_ROW = null;
-var end_routine = false;
+var do_func_return = false;
 
 function reset_program()
 {
@@ -26,7 +26,7 @@ function reset_program()
   PC_ROW = 0;
   next_PC = null;
   next_PC_ROW = null;
-  end_routine = false;
+  do_func_return = false;
   callstack = [];
 
   program_state = "STOPPED";
@@ -126,10 +126,14 @@ function program_step_pre()
   // if there is nothing to do, the crane does nothing
   // so, by default, the crane is in a 'do nothing' state unless told otherwise
   // Setting this default here makes the logic simpler below/elsewhere
-
   crane_state = "none";
+
+  // if we're stepping, we're executing.
   program_state = "EXECUTING";
-  end_routine = false; // because we're running the routine; although we may end it in the same instruction (See the end of this func)
+
+  // Similarly, we haven't reached the end of the current func,
+  // although we may end it in the same instruction (See the end of this func)
+  end_function = false;
   next_PC = null;
   next_PC_ROW = null;
 
@@ -211,13 +215,13 @@ function program_step_pre()
   // Update our state accordingly.
   if( !something_to_do )
   {
-    end_routine = true;
+    do_func_return = true;
   }
 }
 
 function program_step_post()
 {
-  if( end_routine )
+  if( do_func_return )
   {
     if( callstack.length > 0 )
     {
@@ -225,7 +229,7 @@ function program_step_post()
       pop = callstack.pop();
       PC = pop.PC;
       PC_ROW = pop.PC_ROW;
-      end_routine = false;
+      do_func_return = false;
     }
     else
     {
@@ -262,7 +266,7 @@ function animate_program()
   for( var i = 0; i < program.length; i++ )
   {
     text += '<tr>';
-    text += '<td><div class="prog_name">' + PROG_NAMES_FROM_F_MAP["F"+(i+1)] + ":</div></td>";
+    text += '<td class="prog_name">' + PROG_NAMES_FROM_F_MAP["F"+(i+1)] + ":</td>";
     for( var j = 0; j < program[ i ].length; j++ )
     {
       var Cmd = program[i][j].Cmd;
