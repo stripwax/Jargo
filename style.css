@@ -150,7 +150,7 @@ margin-right: 0;
 }
 .prog_table td
 {
-  padding:0;
+  padding:0px;
 }
 .prog_name
 {
@@ -160,6 +160,7 @@ margin-right: 0;
 .prog_cmd_slot
 {
   border:2px solid black;
+  background-color:white;
 }
 .prog_cmd_slot_next
 {
