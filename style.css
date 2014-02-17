@@ -161,6 +161,21 @@ margin-right: 0;
 {
   border:2px solid black;
 }
+.prog_cmd_slot_next
+{
+  border:2px solid green;
+  background-color:#c0ffc0;
+}
+.prog_cmd_slot_last
+{
+  border:2px solid red;
+  background-color:#ffc0c0;
+}
+.prog_cmd_slot_executing
+{
+  border:2px solid blue;
+  background-color:yellow;
+}
 .prog_cmd
 {
   background-size:auto 100%;

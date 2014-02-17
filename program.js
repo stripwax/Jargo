@@ -3,7 +3,9 @@
 
 var CMD_CHOICES=["None","LEFT","RIGHT","GRAB","F1","F2","F3","F4"];
 var COND_CHOICES=["None","Empty","Red","Yellow","Green","Blue","Any"];
+
 var COND_TYPE_MAP={Blue:0,Yellow:1,Red:2,Green:3};
+var PROG_NAMES_FROM_F_MAP={F1:'A',F2:'B',F3:'C',F4:'D'};
 
 var PROGRAM_MAX_FUNCS = 4;
 var PROGRAM_FUNC_SIZE = [8,8,8,5]; // this is cargo bot
@@ -260,34 +262,37 @@ function animate_program()
   for( var i = 0; i < program.length; i++ )
   {
     text += '<tr>';
-    text += '<td><div class="prog_name">F' + (i+1) + ":</div></td>";
+    text += '<td><div class="prog_name">' + PROG_NAMES_FROM_F_MAP["F"+(i+1)] + ":</div></td>";
     for( var j = 0; j < program[ i ].length; j++ )
     {
       var Cmd = program[i][j].Cmd;
       var Cond = program[i][j].Cond;
 
-      text += "<td>";
+      var div_class_extra = "";
       if( j == PC && i == PC_ROW )
       {
         if( program_state == "EXECUTING" )
         {
-          text += "[";
+          div_class_extra = "prog_cmd_slot_executing";
         }
         else
         {
-          text += "*";
+          div_class_extra = "prog_cmd_slot_next";
         }
       }
-      text += "</td>";
+      else if( j == PC - 1 && PC == program[ i ].length && i == PC_ROW )
+      {
+        div_class_extra = "prog_cmd_slot_last";
+      }
 
-      text += '<td class="prog_cmd_slot">';
+      text += '<td class="prog_cmd_slot '+div_class_extra+'">';
       text += '<div class="prog_cond prog_cond_'+Cond+'" id="COND_CELL_'+i+'_'+j+'" onclick="program_condition_cell_click('+i+','+j+');">';
       text += '&nbsp;</div>'; // close cond
 
       text += '<div class="prog_cmd prog_cmd_'+Cmd+'" id="PROG_CELL_'+i+'_'+j+'" onclick="program_command_cell_click('+i+','+j+');">';
       if( Cmd != "None" && Cmd != "LEFT" && Cmd != "RIGHT" && Cmd != "GRAB" )
       {
-        text += "<span>"+Cmd+"</span>";
+        text += "<span>"+PROG_NAMES_FROM_F_MAP[Cmd]+"</span>";
       }
       else
       {
@@ -297,16 +302,6 @@ function animate_program()
 
       text += '</div>'; // close cmd
       text += '</td>';
-      text += "<td>";
-      if( j == PC && i == PC_ROW && program_state == "EXECUTING" )
-      {
-        text += "]";
-      }
-      text += "</td>";
-    }
-    if( j == PC && i == PC_ROW ) // this is one past the end of the program length for this row, i.e. the value of j AFTER the above for loop
-    {
-      text += "<td>*</td>";
     }
     text += "</tr></div>";
   }
