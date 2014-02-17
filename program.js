@@ -16,12 +16,17 @@ var program_state = "STOPPED";
 
 var next_PC = null;
 var next_PC_ROW = null;
+var end_routine = false;
 
 function reset_program()
 {
   PC = 0;
   PC_ROW = 0;
-  callstack = new Array();
+  next_PC = null;
+  next_PC_ROW = null;
+  end_routine = false;
+  callstack = [];
+
   program_state = "STOPPED";
   if(program==null)
     program_load_from_cookie();
@@ -122,6 +127,7 @@ function program_step_pre()
 
   crane_state = "none";
   program_state = "EXECUTING";
+  end_routine = false; // because we're running the routine; although we may end it in the same instruction (See the end of this func)
   next_PC = null;
   next_PC_ROW = null;
 
@@ -199,14 +205,25 @@ function program_step_pre()
     }
   }
 
+  // when we get here, we either have something to do, or we reached the end of the routine
+  // Update our state accordingly.
   if( !something_to_do )
+  {
+    end_routine = true;
+  }
+}
+
+function program_step_post()
+{
+  if( end_routine )
   {
     if( callstack.length > 0 )
     {
       // pop
       pop = callstack.pop();
-      next_PC = pop.PC;
-      next_PC_ROW = pop.PC_ROW;
+      PC = pop.PC;
+      PC_ROW = pop.PC_ROW;
+      end_routine = false;
     }
     else
     {
@@ -214,26 +231,25 @@ function program_step_pre()
       game_stop();
     }
   }
-}
-
-function program_step_post()
-{
-  if( next_PC == null )
-  {
-    PC = PC + 1;
-  }
   else
   {
-    // stack and push our return address
-    return_address = {PC_ROW:PC_ROW, PC:PC+1};
-    callstack.push(return_address.clone());
+    if( next_PC == null )
+    {
+      PC = PC + 1;
+    }
+    else
+    {
+      // stack and push our return address
+      return_address = {PC_ROW:PC_ROW, PC:PC+1};
+      callstack.push(return_address.clone());
 
-    // then 'jump'
-    PC = next_PC;
-    PC_ROW = next_PC_ROW;
-    next_PC = null;
-    next_PC_ROW = null;
-  };
+      // then 'jump'
+      PC = next_PC;
+      PC_ROW = next_PC_ROW;
+      next_PC = null;
+      next_PC_ROW = null;
+    }
+  }
 }
 
 function animate_program()
@@ -290,7 +306,7 @@ function animate_program()
     }
     if( j == PC && i == PC_ROW ) // this is one past the end of the program length for this row, i.e. the value of j AFTER the above for loop
     {
-      text += "*";
+      text += "<td>*</td>";
     }
     text += "</tr></div>";
   }
