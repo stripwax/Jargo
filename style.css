@@ -1,3 +1,35 @@
+body,html
+{
+  height:100%;
+  min-height:100%;
+}
+
+.page_container
+{
+  min-height:100%;
+  height:100%;
+}
+
+body
+{
+font-family:"Arial","Sans-Serif";
+margin-top: 0px;
+margin-left: 0px;
+margin-right: 0px;
+margin-bottom: 0px;
+padding: 0px;
+}
+
+div
+{
+margin: 0;
+margin-top: 0;
+margin-bottom: 0;
+margin-left: 0;
+margin-right: 0;
+}
+
+
 .c_claw_shut
 {
   position:absolute;
@@ -64,41 +96,6 @@
 {
   background-image: url(crate3.svg);
 }
-.pallet
-{
-  text-align:center;
-  background-color:#103050;
-}
-body,html
-{
-  height:100%;
-  min-height:100%;
-}
-
-.page_container
-{
-  min-height:100%;
-  height:100%;
-}
-
-body
-{
-font-family:"Arial","Sans-Serif";
-margin-top: 0px;
-margin-left: 0px;
-margin-right: 0px;
-margin-bottom: 0px;
-padding: 0px;
-}
-
-div
-{
-margin: 0;
-margin-top: 0;
-margin-bottom: 0;
-margin-left: 0;
-margin-right: 0;
-}
 
 .current-background
 {
@@ -156,6 +153,25 @@ margin-right: 0;
 {
   border:2px solid black;
   background-color:#80ffff;
+  background-size:auto 100%;
+  background-repeat:no-repeat;
+  background-position: center;
+}
+.prog_name_F1
+{
+  background-image:url(F1.svg);
+}
+.prog_name_F2
+{
+  background-image:url(F2.svg);
+}
+.prog_name_F3
+{
+  background-image:url(F3.svg);
+}
+.prog_name_F4
+{
+  background-image:url(F4.svg);
 }
 .prog_cmd_slot
 {
@@ -209,15 +225,19 @@ margin-right: 0;
 }
 .prog_cmd_F1
 {
+  background-image:url(F1.svg);
 }
 .prog_cmd_F2
 {
+  background-image:url(F2.svg);
 }
 .prog_cmd_F3
 {
+  background-image:url(F3.svg);
 }
 .prog_cmd_F4
 {
+  background-image:url(F4.svg);
 }
 
 .prog_cond
@@ -254,4 +274,43 @@ margin-right: 0;
 .prog_cond_Empty
 {
   background-image:url(clw-shut.svg);
+}
+
+.pallet
+{
+  background-size:50% 50%;
+  background-repeat:no-repeat;
+  background-position: center;
+}
+.pallet_1
+{
+  background-image:url(pallet_1.svg);
+}
+.pallet_2
+{
+  background-image:url(pallet_2.svg);
+}
+.pallet_3
+{
+  background-image:url(pallet_3.svg);
+}
+.pallet_4
+{
+  background-image:url(pallet_4.svg);
+}
+.pallet_5
+{
+  background-image:url(pallet_5.svg);
+}
+.pallet_6
+{
+  background-image:url(pallet_6.svg);
+}
+.pallet_7
+{
+  background-image:url(pallet_7.svg);
+}
+.pallet_8
+{
+  background-image:url(pallet_8.svg);
 }

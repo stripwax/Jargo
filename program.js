@@ -266,7 +266,7 @@ function animate_program()
   for( var i = 0; i < program.length; i++ )
   {
     text += '<tr>';
-    text += '<td class="prog_name">' + PROG_NAMES_FROM_F_MAP["F"+(i+1)] + ":</td>";
+    text += '<td class="prog_name prog_name_F' +(i+1)+ '">&nbsp</td>';
     for( var j = 0; j < program[ i ].length; j++ )
     {
       var Cmd = program[i][j].Cmd;
@@ -294,15 +294,7 @@ function animate_program()
       text += '&nbsp;</div>'; // close cond
 
       text += '<div class="prog_cmd prog_cmd_'+Cmd+'" id="PROG_CELL_'+i+'_'+j+'" onclick="program_command_cell_click('+i+','+j+');">';
-      if( Cmd != "None" && Cmd != "LEFT" && Cmd != "RIGHT" && Cmd != "GRAB" )
-      {
-        text += "<span>"+PROG_NAMES_FROM_F_MAP[Cmd]+"</span>";
-      }
-      else
-      {
-        // anything so long as it's not empty actually
-        text += "<span>&nbsp;</span>";
-      }
+      text += "&nbsp;";
 
       text += '</div>'; // close cmd
       text += '</td>';
