@@ -278,9 +278,8 @@ margin-right: 0;
 
 .pallet
 {
-  background-size:50% 50%;
+  background-size:100% 100%;
   background-repeat:no-repeat;
-  background-position: center;
 }
 .pallet_1
 {
