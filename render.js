@@ -108,9 +108,9 @@ function render_initialise()
     child.style.position = "absolute";
     child.style.left = ((i*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE)+"px";
     child.style.top = ((MAX_BOXES_HEIGHT+1.5)*CURRENT_SCALE)+"px";
-    child.style.width = CURRENT_SCALE+"px";
+    child.style.width = (CURRENT_SCALE)+"px";
     child.style.height = (CURRENT_SCALE*PALLET_RATIO)+"px";
-    child.className = "pallet_" + (1 + i - warehouse_first_column);
+    child.className = "pallet pallet_" + (1 + i - warehouse_first_column);
     parent_current.appendChild(child);
 
     child = document.createElement("div");
@@ -120,7 +120,7 @@ function render_initialise()
     child.style.top = ((MAX_BOXES_HEIGHT+1.5)*GOAL_SCALE)+"px";
     child.style.width = GOAL_SCALE+"px";
     child.style.height = (GOAL_SCALE*PALLET_RATIO)+"px";
-    child.className = "pallet_" + (1 + i - warehouse_first_column);
+    child.className = "pallet pallet_" + (1 + i - warehouse_first_column);
     parent_goal.appendChild(child);
   }
 
