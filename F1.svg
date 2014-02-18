@@ -14,7 +14,7 @@
    id="svg2989"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 2">
+   sodipodi:docname="F1.svg">
   <defs
      id="defs2991" />
   <sodipodi:namedview
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -63,17 +63,13 @@
            x="5.6363635"
            y="15.636364" /></flowRegion><flowPara
          id="flowPara3003"
-         style="-inkscape-font-specification:Lucida Console;font-family:Lucida Console;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:40px;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">A()</flowPara></flowRoot>    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
-       x="20.727272"
-       y="42.181816"
-       id="text3005"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3007"
-         x="20.727272"
-         y="42.181816"
-         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Lucida Console;-inkscape-font-specification:Lucida Console;fill:#0000ff">a</tspan></text>
+         style="-inkscape-font-specification:Lucida Console;font-family:Lucida Console;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:40px;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">A()</flowPara></flowRoot>    <g
+       style="font-size:90px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Vijaya;-inkscape-font-specification:Vijaya"
+       id="text3005">
+      <path
+         d="m 48.520797,26.351494 -6.899414,23.99414 -0.791016,3.251954 c -0.05862,0.292973 -0.08792,0.541996 -0.08789,0.74707 -2.6e-5,0.380863 0.117162,0.717777 0.351563,1.010742 0.175754,0.205081 0.410129,0.30762 0.703125,0.307617 0.292941,3e-6 0.688449,-0.190426 1.186523,-0.571289 0.908174,-0.673824 2.138642,-2.080073 3.691407,-4.21875 l 1.186523,0.834961 c -1.61136,2.460942 -3.28128,4.328616 -5.009766,5.603027 -1.728542,1.274414 -3.32522,1.911621 -4.790039,1.911622 -0.996116,-1e-6 -1.75051,-0.249024 -2.263183,-0.747071 -0.512716,-0.498046 -0.769064,-1.230467 -0.769043,-2.197265 -2.1e-5,-1.171872 0.263651,-2.695308 0.791015,-4.570313 l 0.747071,-2.680664 c -3.105488,4.042974 -5.947282,6.87012 -8.525391,8.481445 -1.875012,1.142578 -3.706064,1.713867 -5.493164,1.713868 -1.728522,-1e-6 -3.215337,-0.71045 -4.460449,-2.131348 -1.24512,-1.420896 -1.867678,-3.37646 -1.867676,-5.866699 -2e-6,-3.749989 1.120603,-7.712388 3.361816,-11.887207 2.241204,-4.174782 5.104971,-7.507298 8.591309,-9.997559 2.695296,-1.992156 5.244122,-2.988249 7.646484,-2.988281 1.464821,3.2e-5 2.673316,0.380891 3.625489,1.142578 0.952122,0.761749 1.677219,2.021513 2.175293,3.779297 L 42.895797,27.2304 z m -12.612305,1.845703 c -1.49416,3e-5 -3.090839,0.717803 -4.790039,2.15332 -2.431655,1.992214 -4.584973,4.958519 -6.459961,8.898926 -1.875008,3.940445 -2.812507,7.507336 -2.8125,10.700684 -7e-6,1.582038 0.402824,2.841802 1.208496,3.779297 0.805655,0.937503 1.73583,1.406253 2.790528,1.40625 2.548814,3e-6 5.332014,-1.904292 8.349609,-5.712891 4.042945,-5.039049 6.064427,-10.209942 6.064453,-15.512695 -2.6e-5,-1.992161 -0.388209,-3.442355 -1.164551,-4.350586 -0.776391,-0.908174 -1.838401,-1.362275 -3.186035,-1.362305 z"
+         style="line-height:125%;fill:#0000ff;font-family:Vijaya;-inkscape-font-specification:Vijaya"
+         id="path2997" />
+    </g>
   </g>
 </svg>
