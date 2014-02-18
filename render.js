@@ -42,6 +42,14 @@ function redraw()
   }
 }
 
+function render_on_resize()
+{
+  render_set_scale();
+  render_deinitialise();
+  render_initialise();
+  animate_game();
+}
+
 function render_deinitialise()
 {
   var parent_current=document.getElementById("div_current");

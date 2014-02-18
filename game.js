@@ -8,6 +8,7 @@ var current_level_name = null;
 function on_load()
 {
   render_set_scale(); 
+  add_resize_handler();
 
   var categories = level_categories();
   var category_node = document.getElementById("category");
@@ -189,11 +190,6 @@ function game_end( why )
 
 function animate_game()
 {
-//  x = document.getElementById("game");
-//  text = [];
-//  text = text + game_state;
-//  x.innerHTML = text;
-
   next_timeout = redraw();
   animate_program();
 
