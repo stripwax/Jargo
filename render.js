@@ -95,7 +95,7 @@ function render_initialise()
     child.id = "div_current_" + box.id;
     child.style.position = "absolute";
     child.style.left = ((box.x*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE)+"px";
-    child.style.top = ((MAX_BOXES_HEIGHT-box.y)*CURRENT_SCALE)+(0.5*CURRENT_SCALE)+"px";
+    child.style.top = ((MAX_BOXES_HEIGHT-box.y+0.5)*CURRENT_SCALE)+"px";
     child.style.width = CURRENT_SCALE+"px";
     child.style.height = CURRENT_SCALE+"px";
     parent_current.appendChild(child);
@@ -107,7 +107,7 @@ function render_initialise()
     child.id = "div_pallet_" + i;
     child.style.position = "absolute";
     child.style.left = ((i*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE)+"px";
-    child.style.top = ((MAX_BOXES_HEIGHT+1)*CURRENT_SCALE)+(0.5*CURRENT_SCALE)+"px";
+    child.style.top = ((MAX_BOXES_HEIGHT+1.5)*CURRENT_SCALE)+"px";
     child.style.width = CURRENT_SCALE+"px";
     child.style.height = (CURRENT_SCALE*PALLET_RATIO)+"px";
     child.className = "pallet_" + (1 + i - warehouse_first_column);
@@ -117,7 +117,7 @@ function render_initialise()
     child.id = "div_goal_pallet_" + i;
     child.style.position = "absolute";
     child.style.left = ((i*(1+PAD_RATIO))*GOAL_SCALE+(PAD_RATIO/2)*GOAL_SCALE)+"px";
-    child.style.top = ((MAX_BOXES_HEIGHT+1)*GOAL_SCALE)+(0.5*GOAL_SCALE)+"px";
+    child.style.top = ((MAX_BOXES_HEIGHT+1.5)*GOAL_SCALE)+"px";
     child.style.width = GOAL_SCALE+"px";
     child.style.height = (GOAL_SCALE*PALLET_RATIO)+"px";
     child.className = "pallet_" + (1 + i - warehouse_first_column);
@@ -131,7 +131,7 @@ function render_initialise()
     child.id = "div_goal_" + box.id;
     child.style.position = "absolute";
     child.style.left = ((box.x*(1+PAD_RATIO))*GOAL_SCALE+(PAD_RATIO/2)*GOAL_SCALE)+"px";
-    child.style.top = ((MAX_BOXES_HEIGHT-box.y)*GOAL_SCALE)+(0.5*GOAL_SCALE)+"px";
+    child.style.top = ((MAX_BOXES_HEIGHT-box.y+0.5)*GOAL_SCALE)+"px";
     child.style.width = GOAL_SCALE+"px";
     child.style.height = GOAL_SCALE+"px";
     parent_goal.appendChild(child);
