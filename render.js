@@ -3,6 +3,7 @@ var PAD_RATIO = 0.5;
 var GOAL_SCALE = 10;
 var OOB_PAD = 0.5; // this means 'how many boxes-worth of padding do we ALWAYS show as out-of-bounds on the far left and right of the warehouse'
 var PALLET_RATIO = 0.5; // this means 'how many boxes-worth of size do we pad below with, to show the pallet (stacking column) numbers'
+var DIV_BORDER_PX = 6; // how many pixels wide is the border in the .current css style. I suppose I could get this from the DOM really, although oddly this is 1+ the value I set in the css stylesheet..
 
 function render_set_scale()
 {
@@ -12,8 +13,8 @@ function render_set_scale()
 
   var page_height = page_container_div.clientHeight;
   var above_height = above_div.clientHeight;
-  var height = page_height - above_height;
-  var width = above_div.clientWidth;
+  var height = page_height - above_height - (2*DIV_BORDER_PX);
+  var width = above_div.clientWidth - (2*DIV_BORDER_PX);
 
   var tall = MAX_BOXES_HEIGHT+1.5+PALLET_RATIO;
   var wide = MAX_BOXES_WIDTH*(1+PAD_RATIO)+(OOB_PAD*2);

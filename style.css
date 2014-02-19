@@ -6,6 +6,10 @@ body,html
   -moz-user-select:none;
   -ms-user-select:none;
   user-select:none;
+  background:linear-gradient(#d0d0d0,#384050);
+  background:-webkit-linear-gradient(#d0d0d0,#384050);
+  background:-moz-linear-gradient(#d0d0d0,#384050);
+  background:-o-linear-gradient(#d0d0d0,#384050);
 }
 
 .page_container
@@ -67,16 +71,6 @@ margin-right: 0px;
 margin-bottom: 0px;
 padding: 0px;
 }
-
-div
-{
-margin: 0;
-margin-top: 0;
-margin-bottom: 0;
-margin-left: 0;
-margin-right: 0;
-}
-
 
 .c_claw_shut
 {
@@ -153,15 +147,25 @@ margin-right: 0;
   width:100%;
   height:100%;
   background-image: url(warehouse1.jpg);
-  background-size: Auto 100%;
-  opacity:0.3;
+  background-size: 100% 100%;
+}
+
+.current-whiteout
+{
+  position:relative;
+  top:0px;
+  left:0px;
+  width:100%;
+  height:0%;
+  background-color:#ffffff;
+  opacity:0.5;
 }
 
 .current_out_of_bounds
 {
   position:absolute;
-  background-color:#103050;
-  opacity:0.35;
+  background-color:#000000;
+  opacity:0.45;
   height:100%;
   top:0px;
   left:0px;
@@ -171,14 +175,13 @@ margin-right: 0;
 {
   color: white;
   width:100%;
-  border:2px #000;
+  border:5px outset #808080;
 }
 
 .current_container
 {
   color: white;
   width:100%;
-  border:2px #000;
 }
 
 p
@@ -200,7 +203,7 @@ margin-right: 0;
 .prog_name
 {
   border:2px solid black;
-  background-color:#80ffff;
+  background-color:#a0c0e0;
   background-size:auto 100%;
   background-repeat:no-repeat;
   background-position: center;
