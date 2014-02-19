@@ -11,6 +11,10 @@ function program_command_cell_click(i,j)
       break;
     }
   }
+
+  if(cmd.Cmd == "None")
+    cmd.Cond = "None";
+
   animate_program();
 
   program_save_to_cookie();

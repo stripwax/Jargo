@@ -55,7 +55,7 @@ function program_load_from_cookie()
   {
     for(var j=0;j<program[i].length;j++)
     {
-      if(program[i][j]==null)
+      if(program[i][j]==null || program[i][j].Cmd=="None")
         program[i][j]={Cond:"None",Cmd:"None"};
     }
   }
