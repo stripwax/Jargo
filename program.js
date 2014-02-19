@@ -36,6 +36,13 @@ function reset_program()
   animate_program();
 }
 
+function program_clear()
+{
+  program = null;
+  program_has_changed_so_check_and_fix_stuff();
+  reset_program();
+}
+
 function program_load_from_cookie()
 {
   program = null;
