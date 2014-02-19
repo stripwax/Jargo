@@ -42,7 +42,13 @@ function program_load_from_cookie()
 
   program_string = getCookie("program_"+current_level_category+"_"+current_level_name);
   if(program_string != null)
+  {
     program_from_string(program_string);
+  }
+  else
+  {
+    program_from_string("");
+  }
 }
 
 function program_has_changed_so_check_and_fix_stuff()
