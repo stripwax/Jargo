@@ -43,7 +43,10 @@ function program_load_from_cookie()
   program_string = getCookie("program_"+current_level_category+"_"+current_level_name);
   if(program_string != null)
     program_from_string(program_string);
+}
 
+function program_has_changed_so_check_and_fix_stuff()
+{
   if(program==null)
     program=[[],[],[],[]];
 
@@ -109,15 +112,41 @@ function program_from_string( string )
         continue;
       }
       var cond_cmd=(cmd_split[j]).split('|');
-      if(cond_cmd.length != 2)
+      if(cond_cmd.length < 1 || cond_cmd.length > 2)
       {
         progfunc[j]=null;
         continue;
       }
-      progfunc[j]={Cond : cond_cmd[0], Cmd : cond_cmd[1] };
+      if(cond_cmd.length == 1)
+      {
+        if( -1 == CMD_CHOICES.indexOf(cond_cmd[0]) )
+        {
+          progfunc[j]=null;
+          continue;
+        }
+        else
+        {
+          progfunc[j]={Cond : 'None', Cmd : cond_cmd[0]};
+        }
+      }
+      else
+      {
+        if(-1 == CMD_CHOICES.indexOf(cond_cmd[1]) || -1 == COND_CHOICES.indexOf(cond_cmd[0]))
+        {
+          progfunc[j]=null;
+          continue;
+        }
+        else
+        {
+          progfunc[j]={Cond : cond_cmd[0], Cmd : cond_cmd[1] };
+        }
+      }
     }
     program[i]=progfunc;
   }
+
+  program_has_changed_so_check_and_fix_stuff();
+  program_save_to_cookie();
 }
 
 function program_step_pre()
