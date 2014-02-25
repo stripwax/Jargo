@@ -38,9 +38,12 @@ function reset_program()
 
 function program_clear()
 {
-  program = null;
-  program_has_changed_so_check_and_fix_stuff();
-  reset_program();
+  if(confirm("This will erase the program for the current level\nAre you sure?"))
+  {
+    program = null;
+    program_has_changed_so_check_and_fix_stuff();
+    reset_program();
+  }
 }
 
 function program_load_from_cookie()
