@@ -1,7 +1,7 @@
 function program_command_cell_click(i,j)
 {
   var c = document.getElementById("PROG_CELL_"+i+"_"+j);
-  var cmd = program[i][j];
+  var cmd = program.program_data[i][j];
   for(var x=0;x<CMD_CHOICES.length;x++)
   {
     if(CMD_CHOICES[x] == cmd.Cmd)
@@ -15,16 +15,17 @@ function program_command_cell_click(i,j)
   if(cmd.Cmd == "None")
     cmd.Cond = "None";
 
-  animate_program();
+  program.animate();
 
-  program_save_to_cookie();
+  program.save_to_cookie();
 
   return(false);
 }
+
 function program_condition_cell_click(i,j)
 {
   var c = document.getElementById("COND_CELL_"+i+"_"+j);
-  var cmd = program[i][j];
+  var cmd = program.program_data[i][j];
 
   // can't set a conditional if no command..
   // I mean, I could let you do it, but it's redundant and confusing!
@@ -40,9 +41,9 @@ function program_condition_cell_click(i,j)
       break;
     }
   }
-  animate_program();
+  program.animate();
 
-  program_save_to_cookie();
+  program.save_to_cookie();
 
   return(false);
 }

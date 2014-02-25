@@ -10,342 +10,359 @@ var PROG_NAMES_FROM_F_MAP={F1:'A',F2:'B',F3:'C',F4:'D'};
 var PROGRAM_MAX_FUNCS = 4;
 var PROGRAM_FUNC_SIZE = [8,8,8,5]; // this is cargo bot
 
-var program = null;
-var callstack = new Array();
-var PC = 0;
-var PC_ROW = 0;
-var program_state = "STOPPED";
-
-var next_PC = null;
-var next_PC_ROW = null;
-var do_func_return = false;
-
-function reset_program()
+// object definition for the Program
+function Program()
 {
-  PC = 0;
-  PC_ROW = 0;
-  next_PC = null;
-  next_PC_ROW = null;
-  do_func_return = false;
-  callstack = [];
+  this.program_data = null;
+  this.program_data_lengths = [];
+  this.PC = null;
+  this.PC_ROW = null;
+  this.callstack = [];
+  this.execution_state = "STOPPED";
+  this.next_PC = null;
+  this.next_PC_ROW = null;
+  this.do_func_return = false;
 
-  program_state = "STOPPED";
-  if(program==null)
-    program_load_from_cookie();
-
-  animate_program();
-}
-
-function program_clear()
-{
-  if(confirm("This will erase the program for the current level\nAre you sure?"))
+  this.reset = function()
   {
-    program = null;
-    program_has_changed_so_check_and_fix_stuff();
-    reset_program();
+    this.PC = 0;
+    this.PC_ROW = 0;
+    this.next_PC = null;
+    this.next_PC_ROW = null;
+    this.do_func_return = false;
+    this.callstack = [];
+
+    this.execution_state = "STOPPED";
+    if(this.program_data==null)
+      this.load_from_cookie();
+
+    this.animate();
   }
-}
 
-function program_load_from_cookie()
-{
-  program = null;
-
-  program_string = getCookie("program_"+current_level_category+"_"+current_level_name);
-  if(program_string != null)
+  this.pause = function()
   {
-    program_from_string(program_string);
+    this.execution_state = "PAUSED";
   }
-  else
+
+  this.clear_interactive = function()
   {
-    program_from_string("");
+    if(confirm("This will erase the program for the current level\nAre you sure?"))
+    {
+      this.clear();
+    }
   }
-}
 
-function program_has_changed_so_check_and_fix_stuff()
-{
-  if(program==null)
-    program=[[],[],[],[]];
+  this.clear = function()
+  {
+    this.program_data = null;
+    this.program_has_changed_so_check_and_fix_stuff();
+    this.reset();
+  }
 
-  for(var i=0;i<4;i++)
-    program[i].length=PROGRAM_FUNC_SIZE[i];
+  this.load_from_cookie = function()
+  {
+    this.program_data = null;
+
+    var program_string = getCookie("program_"+current_level_category+"_"+current_level_name);
+    if(program_string != null)
+    {
+      this.set_from_string(program_string);
+    }
+    else
+    {
+      this.set_from_string("");
+    }
+  }
+
+  this.program_has_changed_so_check_and_fix_stuff = function()
+  {
+    if(this.program_data==null)
+      this.program_data=[[],[],[],[]];
+
+    for(var i=0;i<4;i++)
+      this.program_data[i].length=PROGRAM_FUNC_SIZE[i];
  
-  for(var i=0;i<program.length;i++)
-  {
-    for(var j=0;j<program[i].length;j++)
+    for(var i=0;i<this.program_data.length;i++)
     {
-      if(program[i][j]==null || program[i][j].Cmd=="None")
-        program[i][j]={Cond:"None",Cmd:"None"};
-    }
-  }
-
-  animate_program();
-}
-
-function program_save_to_cookie()
-{
-  if(program!=null)
-    setCookie("program_"+current_level_category+"_"+current_level_name,program_to_string(),null);
-}
-
-function program_to_string()
-{
-  string="";
-  for(var i=0;i<Math.min(program.length,PROGRAM_MAX_FUNCS);i++)
-  {
-    progfunc=program[i];
-    for(var j=0;j<Math.min(progfunc.length,PROGRAM_FUNC_SIZE[i]);j++)
-    {
-      if(progfunc[j]==null)
+      for(var j=0;j<this.program_data[i].length;j++)
       {
-        string += ","
-      }
-      else
-      {
-        string += progfunc[j].Cond+"|"+progfunc[j].Cmd+","; 
+        if(this.program_data[i][j]==null || this.program_data[i][j].Cmd=="None")
+          this.program_data[i][j]={Cond:"None",Cmd:"None"};
       }
     }
-    string += ":";
-  }
-  return(string);
-}
 
-function program_from_string( string )
-{
-  var i=0;
-  var j=0;
-  program=[ [],[],[],[] ];
-  var func_split = string.split(':');
-  for(var i=0;i<Math.min(func_split.length,PROGRAM_MAX_FUNCS);i++)
+    this.animate();
+  }
+
+  this.save_to_cookie = function()
   {
-    progfunc=[];
-    var cmd_split = (func_split[i]).split(',');
-    for(var j=0;j<Math.min(cmd_split.length,PROGRAM_FUNC_SIZE[i]);j++)
+    if(this.program_data!=null)
+      setCookie("program_"+current_level_category+"_"+current_level_name,this.to_string(),null);
+  }
+
+  this.to_string = function()
+  {
+    var string="";
+    for(var i=0;i<Math.min(this.program_data.length,PROGRAM_MAX_FUNCS);i++)
     {
-      if(cmd_split[j].length==0)
+      var progfunc=this.program_data[i];
+      for(var j=0;j<Math.min(progfunc.length,PROGRAM_FUNC_SIZE[i]);j++)
       {
-        progfunc[j]=null;
-        continue;
+        if(progfunc[j]==null)
+        {
+          string += ","
+        }
+        else
+        {
+          string += progfunc[j].Cond+"|"+progfunc[j].Cmd+","; 
+        }
       }
-      var cond_cmd=(cmd_split[j]).split('|');
-      if(cond_cmd.length < 1 || cond_cmd.length > 2)
+      string += ":";
+    }
+    return(string);
+  }
+
+  this.set_from_string = function( string )
+  {
+    var i=0;
+    var j=0;
+    this.program_data=[ [],[],[],[] ];
+    var func_split = string.split(':');
+    for(var i=0;i<Math.min(func_split.length,PROGRAM_MAX_FUNCS);i++)
+    {
+      var progfunc=[];
+      var cmd_split = (func_split[i]).split(',');
+      for(var j=0;j<Math.min(cmd_split.length,PROGRAM_FUNC_SIZE[i]);j++)
       {
-        progfunc[j]=null;
-        continue;
-      }
-      if(cond_cmd.length == 1)
-      {
-        if( -1 == CMD_CHOICES.indexOf(cond_cmd[0]) )
+        if(cmd_split[j].length==0)
         {
           progfunc[j]=null;
           continue;
         }
-        else
-        {
-          progfunc[j]={Cond : 'None', Cmd : cond_cmd[0]};
-        }
-      }
-      else
-      {
-        if(-1 == CMD_CHOICES.indexOf(cond_cmd[1]) || -1 == COND_CHOICES.indexOf(cond_cmd[0]))
+        var cond_cmd=(cmd_split[j]).split('|');
+        if(cond_cmd.length < 1 || cond_cmd.length > 2)
         {
           progfunc[j]=null;
           continue;
         }
-        else
+        if(cond_cmd.length == 1)
         {
-          progfunc[j]={Cond : cond_cmd[0], Cmd : cond_cmd[1] };
-        }
-      }
-    }
-    program[i]=progfunc;
-  }
-
-  program_has_changed_so_check_and_fix_stuff();
-  program_save_to_cookie();
-}
-
-function program_step_pre()
-{
-  // by definition, each command operates the crane
-  // if there is nothing to do, the crane does nothing
-  // so, by default, the crane is in a 'do nothing' state unless told otherwise
-  // Setting this default here makes the logic simpler below/elsewhere
-  crane_state = "none";
-
-  // if we're stepping, we're executing.
-  program_state = "EXECUTING";
-
-  // Similarly, we haven't reached the end of the current func,
-  // although we may end it in the same instruction (See the end of this func)
-  end_function = false;
-  next_PC = null;
-  next_PC_ROW = null;
-
-  var something_to_do = false;
-
-  while( !something_to_do && PC_ROW < program.length && PC < program[ PC_ROW ].length )
-  {
-    var Cond = program[ PC_ROW ][ PC ].Cond;
-    var Cmd  = program[ PC_ROW ][ PC ].Cmd;
-
-    // optimise out empty program command slots 'as if they were not there'
-    if( Cmd=="None" )
-    {
-      PC++;
-      continue;
-    }
-
-    something_to_do = true;
-
-    if( Cond === "None" )
-    { 
-      match = true;
-    }
-    else if( Cond === "Empty" && crane_box === "None" )
-    {
-      match = true;
-    }
-    else if( Cond === "Any" && crane_box != "None" )
-    {
-      match = true;
-    }
-    else if( COND_TYPE_MAP[Cond] === crane_box.type )
-    {
-      match = true;
-    }
-    else
-    { 
-      match = false;
-    }
-
-    if( match )
-    {
-      if( Cmd === "LEFT" )
-      {
-        crane_state = "going left";
-      }
-      else if( Cmd === "RIGHT" )
-      {
-        crane_state = "going right";
-      }
-      else if( Cmd === "GRAB" )
-      {
-        crane_state = "grabbing down";
-      }
-      else if( Cmd === "F1" )
-      {
-        next_PC_ROW = 0;
-        next_PC = 0;
-      }
-      else if( Cmd === "F2" )
-      {
-        next_PC_ROW = 1;
-        next_PC = 0;
-      }
-      else if( Cmd === "F3" )
-      {
-        next_PC_ROW = 2;
-        next_PC = 0;
-      }
-      else if( Cmd === "F4" )
-      {
-        next_PC_ROW = 3;
-        next_PC = 0;
-      }
-    }
-  }
-
-  // when we get here, we either have something to do, or we reached the end of the routine
-  // Update our state accordingly.
-  if( !something_to_do )
-  {
-    do_func_return = true;
-  }
-}
-
-function program_step_post()
-{
-  if( do_func_return )
-  {
-    if( callstack.length > 0 )
-    {
-      // pop
-      pop = callstack.pop();
-      PC = pop.PC;
-      PC_ROW = pop.PC_ROW;
-      do_func_return = false;
-    }
-    else
-    {
-      program_state = "STOPPED";
-      game_stop();
-    }
-  }
-  else
-  {
-    if( next_PC == null )
-    {
-      PC = PC + 1;
-    }
-    else
-    {
-      // stack and push our return address
-      return_address = {PC_ROW:PC_ROW, PC:PC+1};
-      callstack.push(return_address.clone());
-
-      // then 'jump'
-      PC = next_PC;
-      PC_ROW = next_PC_ROW;
-      next_PC = null;
-      next_PC_ROW = null;
-    }
-  }
-}
-
-function animate_program()
-{
-  var x = document.getElementById("program");
-  var text = "HERE IS THE PROGRAM TO OPERATE THE CRANE:<br>";
-  text += '<div class="prog_container"><table class="prog_table" width="100%">';
-  for( var i = 0; i < program.length; i++ )
-  {
-    text += '<tr>';
-    text += '<td class="prog_name prog_name_F' +(i+1)+ '">&nbsp</td>';
-    for( var j = 0; j < program[ i ].length; j++ )
-    {
-      var Cmd = program[i][j].Cmd;
-      var Cond = program[i][j].Cond;
-
-      var div_class_extra = "";
-      if( j == PC && i == PC_ROW )
-      {
-        if( program_state == "EXECUTING" )
-        {
-          div_class_extra = "prog_cmd_slot_executing";
+          if( -1 == CMD_CHOICES.indexOf(cond_cmd[0]) )
+          {
+            progfunc[j]=null;
+            continue;
+          }
+          else
+          {
+            progfunc[j]={Cond : 'None', Cmd : cond_cmd[0]};
+          }
         }
         else
         {
-          div_class_extra = "prog_cmd_slot_next";
+          if(-1 == CMD_CHOICES.indexOf(cond_cmd[1]) || -1 == COND_CHOICES.indexOf(cond_cmd[0]))
+          {
+            progfunc[j]=null;
+            continue;
+          }
+          else
+          {
+            progfunc[j]={Cond : cond_cmd[0], Cmd : cond_cmd[1] };
+          }
         }
       }
-      else if( j == PC - 1 && PC == program[ i ].length && i == PC_ROW )
+      this.program_data[i]=progfunc;
+    }
+
+    this.program_has_changed_so_check_and_fix_stuff();
+    this.save_to_cookie();
+  }
+
+  this.step_pre = function()
+  {
+    // by definition, each command operates the crane
+    // if there is nothing to do, the crane does nothing
+    // so, by default, the crane is in a 'do nothing' state unless told otherwise
+    // Setting this default here makes the logic simpler below/elsewhere
+    crane_state = "none";
+
+    // if we're stepping, we're executing.
+    this.execution_state = "EXECUTING";
+
+    // Similarly, we haven't reached the end of the current func,
+    // although we may end it in the same instruction (See the end of this func)
+    var end_function = false;
+    this.next_PC = null;
+    this.next_PC_ROW = null;
+
+    var something_to_do = false;
+
+    while( !something_to_do && this.PC_ROW < this.program_data.length && this.PC < this.program_data[ this.PC_ROW ].length )
+    {
+      var prog = this.program_data[ this.PC_ROW ][ this.PC ];
+      var Cond = prog.Cond;
+      var Cmd  = prog.Cmd;
+
+      // optimise out empty program command slots 'as if they were not there'
+      if( Cmd=="None" )
       {
-        div_class_extra = "prog_cmd_slot_last";
+        this.PC++;
+        continue;
       }
 
-      text += '<td class="prog_cmd_slot '+div_class_extra+'">';
-      text += '<div class="prog_cond prog_cond_'+Cond+'" id="COND_CELL_'+i+'_'+j+'" onclick="program_condition_cell_click('+i+','+j+');">';
-      text += '&nbsp;</div>'; // close cond
+      something_to_do = true;
 
-      text += '<div class="prog_cmd prog_cmd_'+Cmd+'" id="PROG_CELL_'+i+'_'+j+'" onclick="program_command_cell_click('+i+','+j+');">';
-      text += "&nbsp;";
+      if( Cond === "None" )
+      { 
+        match = true;
+      }
+      else if( Cond === "Empty" && crane_box === "None" )
+      {
+        match = true;
+      }
+      else if( Cond === "Any" && crane_box != "None" )
+      {
+        match = true;
+      }
+      else if( COND_TYPE_MAP[Cond] === crane_box.type )
+      {
+        match = true;
+      }
+      else
+      { 
+        match = false;
+      }
 
-      text += '</div>'; // close cmd
-      text += '</td>';
+      if( match )
+      {
+        if( Cmd === "LEFT" )
+        {
+          crane_state = "going left";
+        }
+        else if( Cmd === "RIGHT" )
+        {
+          crane_state = "going right";
+        }
+        else if( Cmd === "GRAB" )
+        {
+          crane_state = "grabbing down";
+        }
+        else if( Cmd === "F1" )
+        {
+          this.next_PC_ROW = 0;
+          this.next_PC = 0;
+        }
+        else if( Cmd === "F2" )
+        {
+          this.next_PC_ROW = 1;
+          this.next_PC = 0;
+        }
+        else if( Cmd === "F3" )
+        {
+          this.next_PC_ROW = 2;
+          this.next_PC = 0;
+        }
+        else if( Cmd === "F4" )
+        {
+          this.next_PC_ROW = 3;
+          this.next_PC = 0;
+        }
+      }
     }
-    text += "</tr></div>";
-  }
-  text += "</table></div>";
 
-  x.innerHTML = text;
+    // when we get here, we either have something to do, or we reached the end of the routine
+    // Update our state accordingly.
+    if( !something_to_do )
+    {
+      this.do_func_return = true;
+    }
+  }
+
+  this.step_post = function()
+  {
+    if( this.do_func_return )
+    {
+      if( this.callstack.length > 0 )
+      {
+        // pop
+        var pop = this.callstack.pop();
+        this.PC = pop.PC;
+        this.PC_ROW = pop.PC_ROW;
+        this.do_func_return = false;
+      }
+      else
+      {
+        this.execution_state = "STOPPED";
+        game_stop();
+      }
+    }
+    else
+    {
+      if( this.next_PC == null )
+      {
+        this.PC = this.PC + 1;
+      }
+      else
+      {
+        // stack and push our return address. return address is 'one after' where we are right now (hence the +1 below)
+        var return_address = {PC_ROW:this.PC_ROW, PC:this.PC+1};
+        this.callstack.push(return_address.clone());
+
+        // then 'jump'
+        this.PC = this.next_PC;
+        this.PC_ROW = this.next_PC_ROW;
+        this.next_PC = null;
+        this.next_PC_ROW = null;
+      }
+    }
+  }
+
+  this.animate = function()
+  {
+    var x = document.getElementById("program");
+    var text = "HERE IS THE PROGRAM TO OPERATE THE CRANE:<br>";
+    text += '<div class="prog_container"><table class="prog_table" width="100%">';
+    for( var i = 0; i < this.program_data.length; i++ )
+    {
+      text += '<tr>';
+      text += '<td class="prog_name prog_name_F' +(i+1)+ '">&nbsp</td>';
+      for( var j = 0; j < this.program_data[ i ].length; j++ )
+      {
+        var prog = this.program_data[i][j];
+        var Cmd = prog.Cmd;
+        var Cond = prog.Cond;
+
+        var div_class_extra = "";
+        if( j == this.PC && i == this.PC_ROW )
+        {
+          if( this.execution_state == "EXECUTING" )
+          {
+            div_class_extra = "prog_cmd_slot_executing";
+          }
+          else
+          {
+            div_class_extra = "prog_cmd_slot_next";
+          }
+        }
+        else if( j == this.PC - 1 && this.PC == this.program_data[ i ].length && i == this.PC_ROW )
+        {
+          div_class_extra = "prog_cmd_slot_last";
+        }
+
+        text += '<td class="prog_cmd_slot '+div_class_extra+'">';
+        text += '<div class="prog_cond prog_cond_'+Cond+'" id="COND_CELL_'+i+'_'+j+'" onclick="program_condition_cell_click('+i+','+j+');">';
+        text += '&nbsp;</div>'; // close cond
+
+        text += '<div class="prog_cmd prog_cmd_'+Cmd+'" id="PROG_CELL_'+i+'_'+j+'" onclick="program_command_cell_click('+i+','+j+');">';
+        text += "&nbsp;";
+
+        text += '</div>'; // close cmd
+        text += '</td>';
+      }
+      text += "</tr></div>";
+    }
+    text += "</table></div>";
+
+    x.innerHTML = text;
+  }
+
 }

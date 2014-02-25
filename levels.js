@@ -13,7 +13,7 @@ function load_level_select()
 }
 function load_level_from_choice( category, level_name )
 {
-  program_save_to_cookie();
+  program.save_to_cookie();
 
   console.log( "Loading level: '" + category + "', '" + level_name + "'" );
 
@@ -23,7 +23,7 @@ function load_level_from_choice( category, level_name )
       load_level(i);
   }
 
-  program_load_from_cookie();
+  program.load_from_cookie();
 }
 
 function level_check_sanity( x )

@@ -5,6 +5,8 @@ var animating = false;
 var current_level_category = null;
 var current_level_name = null;
 
+var program = new Program();
+
 function on_load()
 {
   render_set_scale(); 
@@ -28,7 +30,7 @@ function on_load()
     current_level_name = level_node.options[level_node.selectedIndex].text;
     load_level_select();
     game_reset();
-    reset_program();
+    program.reset();
   }
 }
 
@@ -62,7 +64,7 @@ function game_reset()
   x = document.getElementById("run_button");
   x.disabled = false;
 
-  reset_program();
+  program.reset();
   reset_state();
   reset_crane();
 
@@ -97,11 +99,11 @@ function game_tick()
       return;
     }
     animating=false;
-    program_step_post();
+    program.step_post();
   }
   else
   {
-    program_step_pre();
+    program.step_pre();
     crane_step_pre();
 
     if(!crane_step_post())
@@ -112,14 +114,14 @@ function game_tick()
     }
     else
     {
-      program_step_post();
+      program.step_post();
     }
   }
 
   if( game_state === "STEPPING" )
   {
     game_state = "PAUSED";
-    program_state = "PAUSED";
+    program.pause();
   }
 
   animate_game();
@@ -191,7 +193,7 @@ function game_end( why )
 function animate_game()
 {
   next_timeout = redraw();
-  animate_program();
+  program.animate();
 
   if( game_state === "RUNNING" || game_state === "STEPPING" )
     run_timer = setTimeout(function(){game_tick()}, next_timeout); 
