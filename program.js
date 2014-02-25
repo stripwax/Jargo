@@ -183,7 +183,7 @@ function Program()
     // if there is nothing to do, the crane does nothing
     // so, by default, the crane is in a 'do nothing' state unless told otherwise
     // Setting this default here makes the logic simpler below/elsewhere
-    crane_state = "none";
+    crane.state = "none";
 
     // if we're stepping, we're executing.
     this.execution_state = "EXECUTING";
@@ -215,15 +215,15 @@ function Program()
       { 
         match = true;
       }
-      else if( Cond === "Empty" && crane_box === "None" )
+      else if( Cond === "Empty" && crane.box === "None" )
       {
         match = true;
       }
-      else if( Cond === "Any" && crane_box != "None" )
+      else if( Cond === "Any" && crane.box != "None" )
       {
         match = true;
       }
-      else if( COND_TYPE_MAP[Cond] === crane_box.type )
+      else if( COND_TYPE_MAP[Cond] === crane.box.type )
       {
         match = true;
       }
@@ -236,15 +236,15 @@ function Program()
       {
         if( Cmd === "LEFT" )
         {
-          crane_state = "going left";
+          crane.state = "going left";
         }
         else if( Cmd === "RIGHT" )
         {
-          crane_state = "going right";
+          crane.state = "going right";
         }
         else if( Cmd === "GRAB" )
         {
-          crane_state = "grabbing down";
+          crane.state = "grabbing down";
         }
         else if( Cmd === "F1" )
         {

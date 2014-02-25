@@ -6,6 +6,7 @@ var current_level_category = null;
 var current_level_name = null;
 
 var program = new Program();
+var crane = new Crane();
 
 function on_load()
 {
@@ -66,7 +67,7 @@ function game_reset()
 
   program.reset();
   reset_state();
-  reset_crane();
+  crane.reset();
 
   animate_game();
 
@@ -89,11 +90,11 @@ function game_run()
 
 function game_tick()
 {
-  crane_tick();
+  crane.tick();
 
   if(animating)
   {
-    if(!crane_step_post())
+    if(!crane.step_post())
     {
       animate_game();
       return;
@@ -104,9 +105,9 @@ function game_tick()
   else
   {
     program.step_pre();
-    crane_step_pre();
+    crane.step_pre();
 
-    if(!crane_step_post())
+    if(!crane.step_post())
     {
       animating=true;
       animate_game();
