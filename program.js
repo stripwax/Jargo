@@ -66,9 +66,8 @@ function program_has_changed_so_check_and_fix_stuff()
   if(program==null)
     program=[[],[],[],[]];
 
-  for(var i=0;i<3;i++)
-    program[i].length=8;
-  program[3].length=5;
+  for(var i=0;i<4;i++)
+    program[i].length=PROGRAM_FUNC_SIZE[i];
  
   for(var i=0;i<program.length;i++)
   {
