@@ -34,13 +34,17 @@ function redraw()
   render_current_state();
   render_crane();
 
-  if( crane.is_animating )
+  if( crane.fast )
+  {
+    return( 10 );
+  }
+  else if( crane.is_animating )
   {
     return( 50 );
   }
   else
   {
-    return( 50 );
+    return( 100 );
   }
 }
 
@@ -156,8 +160,9 @@ function render_current_state()
   for( var i = 0; i < current_state_boxes.length; i++ )
   {
     var box = current_state_boxes[ i ];
-    if(game_state!="RUNNING" || box.id==crane.box.id)
+    if(game_state!="RUNNING" || box.needs_redrawing )
     {
+      box.needs_redrawing = false;
       child = document.getElementById( "div_current_"+ box.id );
       child.style.left = (box.x*(1+PAD_RATIO)+OOB_PAD)*CURRENT_SCALE+(PAD_RATIO/2)*CURRENT_SCALE+"px";
       child.style.top = (MAX_BOXES_HEIGHT-box.y)*CURRENT_SCALE+(0.5*CURRENT_SCALE)+"px";

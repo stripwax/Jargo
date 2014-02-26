@@ -4,6 +4,7 @@ function Crane()
   this.y = MAX_BOXES_HEIGHT;
   this.state = "None";
   this.box = "None";
+  this.fast = false;
 
   this.is_animating=false;
 
@@ -20,6 +21,7 @@ function Crane()
       this.x = initial_crane_x;
     }
     this.y = MAX_BOXES_HEIGHT;
+    this.is_animating = false;
   }
 
   this.step_pre = function()
@@ -34,8 +36,6 @@ function Crane()
       if( this.x > warehouse_first_column )
       {
         this.x = this.x - 1;
-        if( this.box != "None" )
-          this.box.x = this.x;
       }
       else
       {
@@ -47,58 +47,71 @@ function Crane()
       if( this.x < warehouse_last_column )
       {
         this.x = this.x + 1;
-        if( this.box != "None" )
-          this.box.x = this.x;
       }
       else
       {
         game_end( "Went too far right!" );
       }
     }
-  }
 
-  this.step_post = function()
-  {
-    var next_program_step = false;
-    if( this.is_animating )
-    {
-      return(false); // because we're still in the middle of animation
-    }
-    else if( this.state == "grabbing down" )
-    {
-      this.state = "grabbing up";
-      next_program_step = false; // because we now do a new animation instead
-      this.is_animating = true;
-    }
-    else
-    {
-      this.state = "none";
-      next_program_step = true; // because we now go back to find out the next command
-    }
-
-    return( next_program_step );
+    if( this.box != "None" )
+      this.box.move_to(this.x,this.y);
   }
 
   this.tick = function()
   {
+    if( this.state != "grabbing down" && this.state != "grabbing up" )
+    {
+      this.state = "none";
+      this.is_animating = false;
+      return(false);
+    }
+
     if( this.state === "grabbing down" )
     {
       // this logic is not obvious!
       // if the claw is holding a box, the crane can't go any lower than one space ABOVE the top of the current pile
       // if the claw is NOT holding a box, the crane can't go any lower than the top of the pile
       // and, whether the claw is holding a box or not, the crane cannot go below the ground (= 0)
+      //
+      // 'fast' mode means we do one single step for the whole grab down / grab up animation
       if( this.y > 0 && (this.box == "None" && this.y >= current_state[this.x].length ) || ( this.box != "None" && this.y > current_state[this.x].length ) )
       {
-        this.y = this.y - 1;
-        if( this.box != "None" )
-          this.box.y = this.y;
+        if( this.fast )
+        {
+          this.is_animating=false;
+          if( this.box == "None" )
+          {
+            this.y = Math.max( 0, current_state[this.x].length - 1 );
+          }
+          else
+          {
+            this.y = current_state[this.x].length;
+          }
+        }
+        else
+        {
+          this.y = this.y - 1;
+        }
       }
       else
       {
         this.is_animating=false;
+      }
 
+      // update the box if we are holding one.
+      // we do this BEFORE this below 'drop the box' logic
+      if( this.box != "None" )
+        this.box.move_to(this.x,this.y);
+
+      // should we drop the box? if this.is_animating is false, it means
+      // the grabbing_down animation has finished. Meaning: we're at the bottom. so drop the box.
+      if( !this.is_animating )
+      {
+        // end state (crane arm at bottom of its reach, regardless of how / whether fast or not / etc)
         if( this.box === "None" )
         {
+          // not holding anything? pick up a box, if there's one there.
           if( current_state[ this.x ].length > 0 )
           {
             // there are boxes in this stack (length > 0). pick up the top (the 'last' box) 
@@ -118,24 +131,42 @@ function Crane()
             this.box = "None";
           }
         }
+
+        // because we now do the grabbing up animation, we immediately set is_animating back to true
+        this.state = "grabbing up";
+        this.is_animating = true;
       }
     }
-    else if( this.state === "grabbing up" )
+
+    if( this.state === "grabbing up" )
     {
       if( this.y < MAX_BOXES_HEIGHT )
       {
-        this.y = this.y + 1;
+        if( this.fast )
+        {
+          this.y = MAX_BOXES_HEIGHT;
+          this.is_animating=false;
+        }
+        else
+        {
+          this.y = this.y + 1;
+        }
+
+        // this.y changed so change box.y if crane is carrying a box
         if( this.box != "None" )
-          this.box.y = this.y;
+          this.box.move_to(this.x,this.y);
       }
       else
       {
         this.is_animating=false;
       }
     }
-    else
-    {
-      this.is_animating=false;
-    }
+
+    if(!this.is_animating)
+      this.state = "none";
+
+    return( this.is_animating );
   }
+
+// end Crane
 }

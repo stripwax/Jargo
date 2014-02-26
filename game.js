@@ -56,7 +56,7 @@ function level_select_refresh()
 function game_reset()
 {
   animating = false;
-  if( game_state == "RUNNING" )
+  if( game_state == "RUNNING" || game_state == "STEPPING" )
     game_stop();
 
   game_state = "READY TO RUN!";
@@ -70,7 +70,6 @@ function game_reset()
   crane.reset();
 
   animate_game();
-
   game_reset_next = false;
 }
 
@@ -90,34 +89,24 @@ function game_run()
 
 function game_tick()
 {
-  crane.tick();
+  if( game_state == "PROGRAM ENDED" )
+    return;
 
-  if(animating)
-  {
-    if(!crane.step_post())
-    {
-      animate_game();
-      return;
-    }
-    animating=false;
-    program.step_post();
-  }
-  else
+  if(!crane.is_animating)
   {
     program.step_pre();
     crane.step_pre();
-
-    if(!crane.step_post())
-    {
-      animating=true;
-      animate_game();
-      return;
-    }
-    else
-    {
-      program.step_post();
-    }
   }
+
+  crane.tick();
+
+  if(crane.is_animating)
+  {
+    animate_game();
+    return;
+  }
+
+  program.step_post();
 
   if( game_state === "STEPPING" )
   {
@@ -162,7 +151,7 @@ function game_step()
   var x = document.getElementById("step_button");
   x.disabled = true;
   
-  animate_game();
+  game_tick();
 }
 
 function game_stop()
