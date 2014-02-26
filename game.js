@@ -73,6 +73,11 @@ function game_reset()
   game_reset_next = false;
 }
 
+function program_clear()
+{
+  program.clear_interactive();
+}
+
 function game_run()
 {
   if( game_reset_next )
