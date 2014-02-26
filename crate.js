@@ -5,6 +5,7 @@ function Crate( x, y, type, id )
   this.y = y;
   this.type = type;
   this.id = id;
+  this.needs_redrawing = false;
   
   this.getDiv = function()
   {
