@@ -58,6 +58,18 @@ var levels_data = [
     ],
     crane_x:2,
   },
+  {
+    rating:"Not Quite So Easy",
+    score:8,
+    title:"My Second Swap Experiment!",
+    initial_state:[
+      [2], [3], [],
+    ],
+    goal_state:[
+      [3], [2], [],
+    ],
+    crane_x:1,
+  },
 
   // CARGO BOT OFFICIAL LEVELS
   {
