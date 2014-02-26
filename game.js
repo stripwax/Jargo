@@ -80,6 +80,8 @@ function program_clear()
 
 function game_run()
 {
+  game_fast();
+
   if( game_reset_next )
     game_reset();
   if( game_state == "RUNNING" )
@@ -144,6 +146,8 @@ function game_tick()
 
 function game_step()
 {
+  game_fast();
+
   if( game_reset_next )
     game_reset();
   if( run_timer != null )
@@ -157,6 +161,12 @@ function game_step()
   x.disabled = true;
   
   game_tick();
+}
+
+function game_fast()
+{
+  var speed = document.getElementById("fast_button");
+  crane.fast = speed.checked;
 }
 
 function game_stop()
