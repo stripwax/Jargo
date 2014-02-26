@@ -44,9 +44,9 @@ body,html
 {
   border:5px solid #000;
   position:absolute;
-  left:50px;
-  top:50px;
-  width:400px;
+  left:25vw;
+  top:10vh;
+  width:50vw;
   box-shadow:10px 10px 5px #505050;
 }
 
@@ -56,10 +56,6 @@ body,html
   border-radius:10px;
   background-color:#ffffc0;
   box-shadow:5px 5px 2px #d0d080;
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
-  user-select:none;
 }
 
 body
