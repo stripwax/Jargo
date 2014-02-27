@@ -287,11 +287,7 @@ margin-right: 0;
 }
 .prog_cmd_GRAB
 {
-  background-image:url(arrow.svg);
-  -webkit-transform:rotate(90deg);
-  -ms-transform:rotate(90deg);
-  -moz-transform:rotate(90deg);
-  transform:rotate(90deg);
+  background-image:url(clw-shut.svg);
 }
 .prog_cmd_None
 {
