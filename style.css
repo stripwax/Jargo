@@ -47,6 +47,7 @@ body,html
   left:25vw;
   top:10vh;
   width:50vw;
+  padding:5px 5px 5px 5px; /* give some space inside the popup */
   box-shadow:10px 10px 5px #505050;
 }
 

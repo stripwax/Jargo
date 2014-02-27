@@ -26,8 +26,11 @@
 <div id="page_mask" class="popup_page_mask"></div>
 
 <div class="page_container" id="div_page_container"> <!-- entire viewport -->
+<div style="float:top;width:100%">
+  <button style="width:100%" type="button" onclick="last_help_screen()">H E L P !</button>
+</div>
+<div style="float:left;width:50%;position:relative;"> <!-- entire left-hand-half of the (remainder of the) viewport -->
 
-<div style="float:left;width:50%;height:100%;min-height:100%;">
 <div id="div_lhs_everything_else">
 <div style="float:top;position:relative;height:10%;">
 Choose A Level:
@@ -57,7 +60,7 @@ Choose A Level:
 </div>
 
 
-<div style="float:right;width:50%;height:100%;min-height:100%" id="RHS">
+<div style="float:right;width:50%;" id="RHS">
 <div id="program"></div>
 <button type="button" onclick="game_run()" id="run_button">GO!</button>
 <input type="checkbox" onclick="game_fast()" id="fast_button">FAST!</input>

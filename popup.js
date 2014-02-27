@@ -1,4 +1,5 @@
 var popup_buttons = null;
+var last_popup_func = null;
 
 function popup_click_button(buttonid)
 {
@@ -18,8 +19,22 @@ function popup_dismiss()
   page_mask.hidden=true;
 }
 
+function run_last_popup( d )
+{
+  if( last_popup_func != null && last_popup_func != undefined )
+  {
+    last_popup_func();
+  }
+  else
+  {
+    d();
+  }
+}
+
 function new_popup(content,buttons)
 {
+  last_popup_func = function(){new_popup(content,buttons);};
+
   var page_mask = document.getElementById("page_mask");
   page_mask.hidden=false;
 
