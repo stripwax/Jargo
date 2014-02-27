@@ -1,4 +1,4 @@
-var CATEGORY_SENTINEL = "--Pick A Difficulty--";
+var CATEGORY_SENTINEL = "--Choose A Difficulty--";
 var LEVEL_NAME_SENTINEL = "--Choose A Level--";
 
 function level_categories()
@@ -9,9 +9,8 @@ function level_categories()
 }
 function level_get_names( category )
 {
-  names = [];
-  if( category != CATEGORY_SENTINEL )
-    names = [ LEVEL_NAME_SENTINEL ];
+  names = [ LEVEL_NAME_SENTINEL ];
+
   for( var i = 0; i < levels_data.length; i++ )
   {
     if( levels_data[ i ].rating === category )
