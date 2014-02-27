@@ -339,14 +339,14 @@ margin-right: 0;
 }
 .prog_cond_Any
 {
-  background-image:url(clw-open.svg);
+  background-image:url(conditional-any.svg);
 }
 .prog_cond_None
 {
 }
 .prog_cond_Empty
 {
-  background-image:url(clw-shut.svg);
+  background-image:url(conditional-empty.svg);
 }
 
 .pallet
