@@ -2,8 +2,8 @@ var game_state = "STOPPED";
 var game_reset_next = true;
 var run_timer = null;
 var animating = false;
-var current_level_category = null;
-var current_level_name = null;
+var current_level_category = "";
+var current_level_name = "";
 
 var program = new Program();
 var crane = new Crane();
@@ -24,15 +24,9 @@ function on_load()
   selected_category = categories[ category_node.selectedIndex ];
   level_select_refresh();
 
-  if( current_level_category == null || current_level_name == null )
-  {
-    var level_node = document.getElementById("level_select");
-    current_level_category = selected_category;
-    current_level_name = level_node.options[level_node.selectedIndex].text;
-    load_level_select();
-    game_reset();
-    program.reset();
-  }
+  render_initialise();
+  game_reset();
+  program.reset();
 
   hello_screen();
 }

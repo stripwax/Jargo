@@ -34,9 +34,9 @@
 <div id="div_lhs_everything_else">
 
 <div style="float:top;position:relative">
-<table><tr><td>Choose Difficulty:</td><td><select id="category" onchange="level_select_refresh();"></select></td></tr>
-<tr><td>Then pick a level:</td><td><select id="level_select" onchange="load_level_select();"></select></td></tr>
-</table>
+<select class="level_select_category" id="category" onchange="level_select_refresh();"></select>
+<select id="level_select" onchange="load_level_select();"></select>
+<div id="your_high_score">Your high score for this level: (none)</div>
 </div>
 
 <div style="position:relative;width:100%">

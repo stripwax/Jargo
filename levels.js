@@ -1,6 +1,10 @@
 var level = null;
 var warehouse_first_column = 0;
-var warehouse_last_column = MAX_BOXES_WIDTH - 1;
+var warehouse_last_column = 0;
+var initial_state = [ [] ];
+var current_state = [ [] ];
+var goal_state = [ [] ];
+var initial_crane_x = 0;
 
 function load_level_select()
 {
@@ -10,6 +14,9 @@ function load_level_select()
 }
 function load_level_from_choice( category, level_name )
 {
+  if( category == CATEGORY_SENTINEL || level_name == LEVEL_NAME_SENTINEL )
+    return;
+
   program.save_to_cookie();
 
   console.log( "Loading level: '" + category + "', '" + level_name + "'" );
