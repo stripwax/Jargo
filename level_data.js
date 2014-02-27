@@ -1,4 +1,5 @@
 var levels_data_all_categories = [
+  "DEMO - Select This First",
   "Very Very Easy",
   "Not Quite So Easy",
   "Tutorial (CARGO BOT)",
@@ -10,6 +11,19 @@ var levels_data_all_categories = [
 ];
 
 var levels_data = [
+  {
+    rating:"DEMO - Select This First",
+    score:3,
+    title:"What A Mess!",
+    initial_state:[
+      [2,1,3], [3,0,1,2,1], [3,2,2,0], [1,2,1], [3,3,3], [0,0,0,3], [1,2,1],
+    ],
+    goal_state:[
+      [3,1,2,0], [3,1,2,0], [3,1,2], [3,1,2], [3,1,0], [3,1,2,0], [3,1,2,0],
+    ],
+    crane_x:1,
+    program:"GRAB,RIGHT,RIGHT,RIGHT,GRAB,RIGHT,F2:GRAB,LEFT,LEFT,LEFT,GRAB,LEFT,F1",
+  },
   {
     rating:"Very Very Easy",
     score:3,

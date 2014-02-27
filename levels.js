@@ -124,6 +124,9 @@ function load_level(x)
   current_level_category = level.rating;
   current_level_name = level.title;
 
+  if( level.program != undefined )
+    program.set_from_string(level.program);
+
   render_initialise();
 
   game_reset();
