@@ -324,7 +324,7 @@ function Program()
     for( var i = 0; i < this.program_data.length; i++ )
     {
       text += '<tr>';
-      text += '<td class="prog_name prog_name_F' +(i+1)+ '">&nbsp</td>';
+      text += '<td class="prog_name prog_name_F' +(i+1)+ '">&nbsp;</td>';
       for( var j = 0; j < this.program_data[ i ].length; j++ )
       {
         var prog = this.program_data[i][j];
@@ -349,16 +349,15 @@ function Program()
         }
 
         text += '<td class="prog_cmd_slot '+div_class_extra+'">';
-        text += '<div class="prog_cond prog_cond_'+Cond+'" id="COND_CELL_'+i+'_'+j+'" onclick="program_condition_cell_click('+i+','+j+');">';
-        text += '&nbsp;</div>'; // close cond
+        text += '<table class="prog_cmd_slot_inner_table"><tr><td class="prog_cond prog_cond_'+Cond+'" id="COND_CELL_'+i+'_'+j+'" onclick="program_condition_cell_click('+i+','+j+');">';
+        text += '&nbsp;</td></tr>' // close cond
 
-        text += '<div class="prog_cmd prog_cmd_'+Cmd+'" id="PROG_CELL_'+i+'_'+j+'" onclick="program_command_cell_click('+i+','+j+');">';
-        text += "&nbsp;";
+        text += '<tr><td class="prog_cmd prog_cmd_'+Cmd+'" id="PROG_CELL_'+i+'_'+j+'" onclick="program_command_cell_click('+i+','+j+');">';
+        text += "&nbsp;</td></tr></table>";
 
-        text += '</div>'; // close cmd
         text += '</td>';
       }
-      text += "</tr></div>";
+      text += "</tr>";
     }
     text += "</table></div>";
 
