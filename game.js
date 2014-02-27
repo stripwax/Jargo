@@ -33,6 +33,8 @@ function on_load()
     game_reset();
     program.reset();
   }
+
+  hello_screen();
 }
 
 function level_select_refresh()
