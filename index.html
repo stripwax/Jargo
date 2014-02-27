@@ -32,16 +32,15 @@
 <div style="float:left;width:50%;position:relative;"> <!-- entire left-hand-half of the (remainder of the) viewport -->
 
 <div id="div_lhs_everything_else">
-<div style="float:top;position:relative;height:10%;">
-Choose A Level:
-<select id="category" onchange="level_select_refresh();">
-</select>
-<select id="level_select">
-</select>
-<button type="button" onclick="load_level_select()">Load Level</button>
+
+<div style="float:top;position:relative">
+<table><tr><td>Choose Difficulty:</td><td><select id="category" onchange="level_select_refresh();"></select></td></tr>
+<tr><td>Then pick a level:</td><td><select id="level_select" onchange="load_level_select();"></select></td></tr>
+</table>
 </div>
-<div style="position:relative;height:10%">
-<h1>Your Warehouse</h1>
+
+<div style="position:relative;width:100%">
+<table class="warehouse_heading"><tr><td class="Your_Warehouse">Your Warehouse</td><td class="reset_warehouse_layout"><button type="button" onclick="game_reset()">Reset Warehouse!</button></td></tr></table>
 </div>
 </div><!-- div_lhs_everything_else -->	
 
@@ -65,8 +64,6 @@ Choose A Level:
 <button type="button" onclick="game_run()" id="run_button">GO!</button>
 <input type="checkbox" onclick="game_fast()" id="fast_button">FAST!</input>
 <button type="button" onclick="game_step()" id="step_button">One Step</button>
-&nbsp;&nbsp;&nbsp;&nbsp;
-<button type="button" onclick="game_reset()">Restart</button>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="program_clear()">Clear Program!</button>
 <div style="position:relative;">

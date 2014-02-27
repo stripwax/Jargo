@@ -389,3 +389,19 @@ margin:0px;
 {
   background-image:url(pallet_8.svg);
 }
+
+.warehouse_heading
+{
+  border-spacing:0px;
+  margin:-px;
+  padding:0px;
+  width:100%;
+}
+.Your_Warehouse
+{
+  font-size:150%;
+}
+.reset_warehouse_layout
+{
+  float:right;
+}
