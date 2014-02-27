@@ -102,7 +102,8 @@ function help_screen_8()
 {
   new_popup(
     "Ok, back so soon? If you haven't already done so, press the 'GO!' button to run that program and see what the crane does!<br>"+
-    "Again, you'll need to Exit Help to get back to the game, but click Help and you'll come straight back here again.", 
+    "Don't worry that the program for the crane doesn't actually tidy up the warehouse properly! It's just an example, so just play around with it.<br>"+
+    "You'll need to Exit Help to get back to the game, but when you're finished experimenting, just click Help and you'll come straight back here again.", 
     [ { text:"<< Exit Help" }, { text:"Back <", func:help_screen_7 }, {text:"Next Help >", func:help_screen_9} ]
   );
 }
