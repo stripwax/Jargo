@@ -55,7 +55,24 @@ body,html
   border:2px solid #000;
   border-radius:10px;
   background-color:#ffffc0;
-  box-shadow:5px 5px 2px #d0d080;
+  box-shadow:5px 5px 2px #d0b070;
+  margin:10px 10px 10px 10px; /* Top, Right, Bottom, Left. Bottom margin so that the drop shadow of the button doesn't overlap the drop shadow of the popup-containing-the-button! (same for right hand side; and left for symmetry with that). and Top so that there's some space between end of text and row of buttons. */
+  text-decoration:none;
+  outline:none;
+  -webkit-transition: background-color 0.25s ease;
+  -ms-transition: background-color 0.25s ease;
+  -moz-transition: background-color 0.25s ease;
+  -o-transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease;
+}
+.popup_button:hover
+{
+  background-color:#80ff80;
+}
+.popup_button:active
+{
+  background-color:#00ff00;
+  box-shadow:2px 2px 1px #e0c080;
 }
 
 body
