@@ -12,9 +12,6 @@ function program_command_cell_click(i,j)
     }
   }
 
-  if(cmd.Cmd == "None")
-    cmd.Cond = "None";
-
   program.animate();
 
   program.save_to_cookie();
