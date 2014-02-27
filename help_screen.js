@@ -113,7 +113,9 @@ function help_screen_9()
   new_popup(
     "Super, let's really start doing something now. Choose the level category called 'Tutorial' and pick the first level, "+
     "called Cargo 101. See if you can program the crane to give the Goal result. Get it right and I'll give you a score, and you can move onto the "+
-    "next level!",
+    "next level!<br>"+
+    "Here's a tip, if the program doesn't do the right thing and you need to start over, click Restart to put the crates back "+
+    "how you found them, ready for you to try again.  And if your want to wipe your program, click Clear Program!",
     [ { text:"<< Exit Help" }, { text:"Back <", func:help_screen_8 }, {text:"TELL ME A SECRET!", func:help_screen_10} ]
   );
 }
