@@ -42,7 +42,7 @@ function help_screen_3()
   new_popup(
     "The robot crane can only do a few things. It can go left, it can go right, and it can pick up or drop "+
     "one crate a time. The instruction to go left looks like a arrow pointing left, and the instruction to go "+
-    "right looks like an instruction pointing right. The instruction to pick up a crate is the same as the "+
+    "right looks like an arrow pointing right. The instruction to pick up a crate is the same as the "+
     "instruction to drop a crate, and it looks like an arrow pointing down. So, if the robot crane is holding a crate "+
     "then the down arrow will make it drop it. Otherwise it will make the crane pick up whatever crate is directly under the crane.",
     [ { text:"<< Exit Help" }, { text:"Back <", func:help_screen_2 }, {text:"Next Help >", func:help_screen_4 } ]
