@@ -399,9 +399,10 @@ margin:0px;
 }
 .Your_Warehouse
 {
-  font-size:150%;
+  font-size:200%;
 }
 .reset_warehouse_layout
 {
-  float:right;
+  display:table-cell;
+  vertical-align:bottom;
 }
