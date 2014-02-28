@@ -77,8 +77,8 @@ function help_screen_5()
     "The robot crane can only do a few things. It can go left, it can go right, and it can pick up or drop "+
     "one crate at a time. The instruction to go left looks like an arrow pointing left, and the instruction to go "+
     "right looks like an arrow pointing right. The instruction to pick up a crate is the same as the "+
-    "instruction to drop a crate, and it looks like an arrow pointing down. So, if the robot crane is holding a crate "+
-    "then the down arrow will make it drop it. Otherwise it will make the crane pick up whatever crate is directly under the crane.",
+    "instruction to drop a crate, and it looks like the crane's grabber. So, if the robot crane is holding a crate "+
+    "then the grabber icon will make it drop it. Otherwise it will make the crane pick up whatever crate is directly under the crane.",
     [ { text:"<< Exit Help" }, { text:"Back <", func:help_screen_4 }, {text:"Next Help >", func:help_screen_6 } ]
   );
 }
@@ -103,7 +103,7 @@ function help_screen_7()
     "'choice' attached to it, called a 'conditional'. If you already know coding, think of it like an <code>IF</code> statement. "+
     "You can say 'go left IF the crane is holding a blue crate' or 'perform a grab IF the crane is not holding any crate'.<br>" +
     "Here's all the conditionals:"+
-    help_conditionals_glossary()
+    help_conditional_glossary(),
     [ { text:"<< Exit Help" }, { text:"Back <", func:help_screen_6 }, {text:"Next Help >", func:help_screen_8} ]
   );
 }
