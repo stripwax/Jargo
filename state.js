@@ -41,14 +41,14 @@ function check_goal_state()
     message += "That's worth " + score + " stars!<br>";
     message += "<center>";
     message += stars_innerhtml("big_star",score,4);
-    message += "</center><br>";
+    message += '</center><br><div style="clear:both">';
     if( score==4 )
     {
       message += "That's the best possible score, because that's the fewest instructions!"
     }
     else
     {
-      message += "If you use fewer instructions to solve this, you'll get more stars! Are you up to the challenge?";
+      message += "If you use fewer instructions to solve this, you'll get more stars! Are you up to the challenge?</div>";
     }
     new_popup(
       "score",
