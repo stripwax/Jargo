@@ -406,3 +406,15 @@ margin:0px;
   display:table-cell;
   vertical-align:bottom;
 }
+
+.conditionals_glossary,.commands_glossary
+{
+  width:100%;
+  background-color:white;
+  border-spacing:10px;
+}
+.glossary_container
+{
+  display:table-cell;
+  text-align:left;
+}

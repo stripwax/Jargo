@@ -1,5 +1,5 @@
 var popup_buttons = null;
-var last_popup_func = null;
+var last_popup_func = {};
 
 function popup_click_button(buttonid)
 {
@@ -19,21 +19,21 @@ function popup_dismiss()
   page_mask.hidden=true;
 }
 
-function run_last_popup( d )
+function run_last_popup( category, default_f )
 {
-  if( last_popup_func != null && last_popup_func != undefined )
+  if( last_popup_func[ category ] != undefined )
   {
-    last_popup_func();
+    (last_popup_func[ category ])();
   }
   else
   {
-    d();
+    default_f();
   }
 }
 
-function new_popup(content,buttons)
+function new_popup(category,content,buttons)
 {
-  last_popup_func = function(){new_popup(content,buttons);};
+  last_popup_func[category] = function(){new_popup(content,buttons);};
 
   var page_mask = document.getElementById("page_mask");
   page_mask.hidden=false;
