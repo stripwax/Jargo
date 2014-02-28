@@ -215,13 +215,13 @@ function Program()
       { 
         match = true;
       }
-      else if( Cond === "Empty" && crane.box === "None" )
+      else if( Cond === "Empty" )
       {
-        match = true;
+        match = ( crane.box === "None" );
       }
-      else if( Cond === "Any" && crane.box != "None" )
+      else if( Cond === "Any" )
       {
-        match = true;
+        match = ( crane.box != "None" )
       }
       else if( COND_TYPE_MAP[Cond] === crane.box.type )
       {
