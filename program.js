@@ -364,4 +364,17 @@ function Program()
     x.innerHTML = text;
   }
 
+  this.get_instruction_count = function()
+  {
+    var pcount = 0;
+    for(var i=0;i<this.program_data.length;i++)
+    {
+      for(var j=0;j<this.program_data[i].length;j++)
+      {
+        if(this.program_data[i][j].Cmd != "None" )
+          pcount++;
+      }
+    }
+    return(pcount);
+  }
 }

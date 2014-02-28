@@ -204,3 +204,19 @@ function render_crane()
   claw.className = which_claw;
 }
 
+function animate_highscore()
+{
+  var el = document.getElementById("your_high_score");
+  stars = stars_innerhtml("small_star", current_level_highscore,4);
+  el.innerHTML = stars;
+}
+
+function stars_innerhtml( base_class, number, max )
+{
+  var stars = "";
+  for(var i=0;i<number;i++)
+    stars += '<span class="' + base_class + ' gold_star">&nbsp;</span>';
+  for(var i=number;i<max;i++)
+    stars += '<span class="' + base_class + ' blank_star">&nbsp;</span>';
+  return( stars );
+}

@@ -31,7 +31,30 @@ function check_goal_state()
 
   if( match )
   {
-    alert( "yay!");
+    var pcount = program.get_instruction_count();
+    var score = level_score(pcount);
+    current_level_highscore=score;
+    setCookie("score_"+current_level_category+"_"+current_level_name, ""+score /* cast score to string */ );
+    animate_highscore();
+
+    message = "<H1>Well Done!</H1>You solved it using " + pcount + " instructions.<br>";
+    message += "That's worth " + score + " stars!<br>";
+    message += "<center>";
+    message += stars_innerhtml("big_star",score,4);
+    message += "</center><br>";
+    if( score==4 )
+    {
+      message += "That's the best possible score, because that's the fewest instructions!"
+    }
+    else
+    {
+      message += "If you use fewer instructions to solve this, you'll get more stars! Are you up to the challenge?";
+    }
+    new_popup(
+      "score",
+      message
+    );
+
     game_stop();
   }
 }

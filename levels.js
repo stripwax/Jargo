@@ -27,6 +27,10 @@ function load_level_from_choice( category, level_name )
       load_level(i);
   }
 
+  current_level_highscore = getCookie( "score_" + current_level_category+"_"+current_level_name, 0 );
+  if(current_level_highscore == undefined)
+    current_level_highscore = 0;
+  animate_highscore();
   program.load_from_cookie();
 }
 
@@ -139,3 +143,28 @@ function load_level(x)
   game_reset();
 }
 
+function level_score( pcount )
+{
+  var level3score = level.score * 1.1;
+  if(level.score3 != undefined )
+    level3score = level.score3;
+  level2score = level3score * 1.1;
+
+  if(pcount <= level.score)
+  {
+     return(4);
+  }
+  else if(pcount <= level3score )
+  {
+    return(3);
+  }
+  else if(pcount <= level2score )
+  {
+    return(2);
+  }
+  else
+  {
+    // the least you can get for solving a level is 1 star
+    return(1);
+  }
+}
