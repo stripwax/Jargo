@@ -33,7 +33,7 @@ function run_last_popup( category, default_f )
 
 function new_popup(category,content,buttons)
 {
-  last_popup_func[category] = function(){new_popup(content,buttons);};
+  last_popup_func[category] = function(){new_popup(category,content,buttons);};
 
   var page_mask = document.getElementById("page_mask");
   page_mask.hidden=false;
