@@ -305,7 +305,7 @@ function Program()
       {
         // stack and push our return address. return address is 'one after' where we are right now (hence the +1 below)
         var return_address = {PC_ROW:this.PC_ROW, PC:this.PC+1};
-        this.callstack.push(return_address.clone());
+        this.callstack.push(deepObjCopy(return_address));
 
         // then 'jump'
         this.PC = this.next_PC;

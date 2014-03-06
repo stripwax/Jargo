@@ -3,7 +3,7 @@ var LEVEL_NAME_SENTINEL = "--Choose A Level--";
 
 function level_categories()
 {
-  var levels = levels_data_all_categories.clone();
+  var levels = deepObjCopy(levels_data_all_categories);
   levels.unshift( CATEGORY_SENTINEL );
   return( levels );
 }

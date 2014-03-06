@@ -71,7 +71,7 @@ function reset_state()
     {
       for( var j = 0; j < initial_state[i].length; j++ )
       {
-        var crate = initial_state[i][j].clone();
+        var crate = deepObjCopy(initial_state[i][j]);
         current_column.push( crate );
         current_state_boxes.push( crate );
       }

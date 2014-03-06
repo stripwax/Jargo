@@ -106,7 +106,7 @@ function load_level(x)
     {
       var crate = new Crate( i + warehouse_first_column, j, level.initial_state[i][j], id );
       initial_column.push( crate );
-      var clone_crate = crate.clone();
+      var clone_crate = deepObjCopy(crate);
       current_column.push( clone_crate );
       current_state_boxes.push( clone_crate );
       id = id + 1;
