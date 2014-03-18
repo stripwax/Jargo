@@ -145,10 +145,10 @@ function load_level(x)
 
 function level_score( pcount )
 {
-  var level3score = level.score * 1.1;
+  var level3score = Math.max(level.score * 1.25,level.score+2);
   if(level.score3 != undefined )
     level3score = level.score3;
-  level2score = level3score * 1.1;
+  level2score = Math.max(level3score * 1.25,level3score+2);
 
   if(pcount <= level.score)
   {

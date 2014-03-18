@@ -1,8 +1,8 @@
 var levels_data_all_categories = [
   "Very Very Easy",
-  "Not Quite So Easy",
   "Tutorial (CARGO BOT)",
   "Easy (CARGO BOT)",
+  "Not Quite So Easy",
   "Medium (CARGO BOT)",
   "Hard (CARGO BOT)",
   "Crazy (CARGO BOT)",
@@ -150,7 +150,8 @@ var levels_data = [
   },
   {
     rating:"Tutorial (CARGO BOT)",
-    score:9,
+    score:4,
+    score3:9,
     title:"Go Left",
     initial_state:[
       [], [1,1,1],[2,2,2],[3,3,3],
